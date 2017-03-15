@@ -164,10 +164,10 @@ function search(player, type, query, offset, limit, settings) {
         .then((result) => {
             result.start = parseInt(offset);
             if (offset > 0) {
-                result.previous = `${settings.webroot}/search?service=spotify&type=${type}&q=${query}&limit=${limit}&offset=${(offset - limit < 0 ? 0 : offset - limit)}`;
+                result.previous = `${settings.webRoot}/search?service=spotify&type=${type}&q=${query}&limit=${limit}&offset=${(offset - limit < 0 ? 0 : offset - limit)}`;
             }
             if (offset + result.returned < result.total) {
-                result.next = `${settings.webroot}/search?service=spotify&type=${type}&q=${query}&limit=${limit}&offset=${(offset + limit)}`;
+                result.next = `${settings.webRoot}/search?service=spotify&type=${type}&q=${query}&limit=${limit}&offset=${(offset + limit)}`;
             }
 
             return result;

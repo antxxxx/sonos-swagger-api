@@ -66,10 +66,10 @@ function search(player, type, query, offset, limit, settings) {
             };
 
             if (offset > 0) {
-                result.previous = `${settings.webroot}/search?service=library&type=${type}&q=${query}&limit=${limit}&offset=${(offset - limit < 0 ? 0 : offset - limit)}`;
+                result.previous = `${settings.webRoot}/search?service=library&type=${type}&q=${query}&limit=${limit}&offset=${(offset - limit < 0 ? 0 : offset - limit)}`;
             }
             if (offset + parseInt(data.numberReturned) < parseInt(data.totalMatches)) {
-                result.next = `${settings.webroot}/search?service=library&type=${type}&q=${query}&limit=${limit}&offset=${(offset + limit)}`;
+                result.next = `${settings.webRoot}/search?service=library&type=${type}&q=${query}&limit=${limit}&offset=${(offset + limit)}`;
             }
 
             return result;

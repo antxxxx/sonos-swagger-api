@@ -208,10 +208,10 @@ function search(player, type, query, offset, limit, settings) {
         };
 
         if (offset > 0) {
-            results.previous = `${settings.webroot}/search?service=iplayer&type=${type}&q=${query}&limit=${limit}&offset=${(offset - limit < 0 ? 0 : offset - limit)}`;
+            results.previous = `${settings.webRoot}/search?service=iplayer&type=${type}&q=${query}&limit=${limit}&offset=${(offset - limit < 0 ? 0 : offset - limit)}`;
         }
         if (offset + searchResults.length < sortedResults.length) {
-            results.next = `${settings.webroot}/search?service=iplayer&type=${type}&q=${query}&limit=${limit}&offset=${(offset + limit)}`;
+            results.next = `${settings.webRoot}/search?service=iplayer&type=${type}&q=${query}&limit=${limit}&offset=${(offset + limit)}`;
         }
 
         return results;
