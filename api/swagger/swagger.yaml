@@ -1,0 +1,3380 @@
+swagger: '2.0'
+info:
+  version: '0.9'
+  title: SONOS SWAGGER API
+  description: ''
+host: localhost
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /players:
+    get:
+      operationId: getPlayers
+      summary: get all players
+      tags:
+        - Players
+      description: |-
+        This gets information about all players currently discovered
+
+        Example call
+        ```
+        curl -X GET 'http://localhost:10010/players'
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/playersResult'
+          examples:
+            application/json:
+              - coordinator: RINCON_000E58C4373C01400
+                groupState:
+                  volume: 22
+                  mute: false
+                roomName: Bedroom
+                state:
+                  currentTrack:
+                    artist: ''
+                    title: ''
+                    album: ''
+                    albumArtUri: ''
+                    duration: 0
+                    uri: ''
+                    type: track
+                    stationName: ''
+                  nextTrack:
+                    artist: ''
+                    title: ''
+                    album: ''
+                    albumArtUri: ''
+                    duration: 0
+                    uri: ''
+                  volume: 22
+                  mute: false
+                  trackNo: 0
+                  elapsedTime: 0
+                  elapsedTimeFormatted: '00:00:00'
+                  playbackState: STOPPED
+                  playMode:
+                    repeat: none
+                    shuffle: false
+                    crossfade: false
+                uuid: RINCON_000E58C4373C01400
+              - coordinator: RINCON_000E585394A801400
+                groupState:
+                  volume: 22
+                  mute: false
+                roomName: Kitchen
+                state:
+                  currentTrack:
+                    artist: ''
+                    title: ''
+                    album: ''
+                    albumArtUri: ''
+                    duration: 0
+                    uri: ''
+                    type: track
+                    stationName: ''
+                  nextTrack:
+                    artist: ''
+                    title: ''
+                    album: ''
+                    albumArtUri: ''
+                    duration: 0
+                    uri: ''
+                  volume: 22
+                  mute: false
+                  trackNo: 0
+                  elapsedTime: 0
+                  elapsedTimeFormatted: '00:00:00'
+                  playbackState: STOPPED
+                  playMode:
+                    repeat: none
+                    shuffle: false
+                    crossfade: false
+                uuid: RINCON_000E585394A801400
+              - coordinator: RINCON_5CAAFD23191C01400
+                groupState:
+                  volume: 17
+                  mute: false
+                roomName: James bedroom
+                state:
+                  currentTrack:
+                    artist: Lil Wayne
+                    title: >-
+                      Sucker For Pain (with Wiz Khalifa, Imagine Dragons, Logic
+                      & Ty Dolla $ign feat. X Ambassadors)
+                    album: >-
+                      Sucker For Pain (with Logic & Ty Dolla $ign feat. X
+                      Ambassadors)
+                    albumArtUri: >-
+                      /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a4dASQiO1Eoo3RJvt74FtXB%3fsid%3d9%26flags%3d8224%26sn%3d9
+                    duration: 243
+                    uri: >-
+                      x-sonos-spotify:spotify%3atrack%3a4dASQiO1Eoo3RJvt74FtXB?sid=9&flags=8224&sn=9
+                    type: track
+                    stationName: ''
+                    absoluteAlbumArtUri: >-
+                      https://i.scdn.co/image/78d07d2361fce8f76216a2b3eddcf1f0e05e82b6
+                  nextTrack:
+                    artist: Fall Out Boy
+                    title: Fourth Of July
+                    album: American Beauty/American Psycho
+                    albumArtUri: >-
+                      /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a3CBWtVFHhxeaHVm4VverBG%3fsid%3d9%26flags%3d8224%26sn%3d9
+                    duration: 224
+                    uri: >-
+                      x-sonos-spotify:spotify%3atrack%3a3CBWtVFHhxeaHVm4VverBG?sid=9&flags=8224&sn=9
+                    absoluteAlbumArtUri: >-
+                      https://i.scdn.co/image/a7e0ad744b844d7743f2a99f82012af0b41e2d5a
+                  volume: 17
+                  mute: false
+                  trackNo: 1
+                  elapsedTime: 14
+                  elapsedTimeFormatted: '00:00:14'
+                  playbackState: PAUSED_PLAYBACK
+                  playMode:
+                    repeat: none
+                    shuffle: true
+                    crossfade: false
+                uuid: RINCON_5CAAFD23191C01400
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: players
+  '/players/{playerName}':
+    parameters:
+      - name: playerName
+        in: path
+        description: The player name
+        required: true
+        type: string
+    get:
+      operationId: getPlayer
+      summary: get individual player
+      tags:
+        - Players
+      description: |-
+        This gets the details of an individual player
+
+        Example call
+        ```
+        curl -X GET 'http://localhost:10010/players/bedroom'
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/player'
+          examples:
+            application/json:
+              currentTrack:
+                artist: Virgin Radio UK
+                title: 'Now Playing: Talk Tonight - Oasis'
+                albumArtUri: >-
+                  /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                duration: 0
+                uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                type: radio
+                stationName: Virgin Radio UK
+                absoluteAlbumArtUri: >-
+                  http://192.168.1.21:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+              nextTrack:
+                artist: ''
+                title: ''
+                album: ''
+                albumArtUri: ''
+                duration: 0
+                uri: ''
+              volume: 28
+              mute: false
+              trackNo: 1
+              elapsedTime: 120
+              elapsedTimeFormatted: '00:02:00'
+              playbackState: PLAYING
+              playMode:
+                repeat: none
+                shuffle: false
+                crossfade: false
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: players
+  '/players/{playerName}/state':
+    parameters:
+      - name: playerName
+        in: path
+        description: The player name
+        required: true
+        type: string
+    get:
+      operationId: getPlayerState
+      summary: get player state
+      tags:
+        - Players
+      description: |-
+        This gets the status of an individual player
+
+        Example call
+        ```
+        curl -X GET 'http://localhost:10010/players/bedroom/state'
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/state'
+          examples:
+            application/json:
+              currentTrack:
+                artist: Virgin Radio UK
+                title: 'Now Playing: Talk Tonight - Oasis'
+                albumArtUri: >-
+                  /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                duration: 0
+                uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                type: radio
+                stationName: Virgin Radio UK
+                absoluteAlbumArtUri: >-
+                  http://192.168.1.21:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+              nextTrack:
+                artist: ''
+                title: ''
+                album: ''
+                albumArtUri: ''
+                duration: 0
+                uri: ''
+              volume: 28
+              mute: false
+              trackNo: 1
+              elapsedTime: 120
+              elapsedTimeFormatted: '00:02:00'
+              playbackState: PLAYING
+              playMode:
+                repeat: none
+                shuffle: false
+                crossfade: false
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    put:
+      operationId: setPlayerState
+      summary: set player state
+      tags:
+        - Players
+      description: >-
+        This endpoint is used to to change the status of a player. The available
+        states you can change are
+
+
+        * volume - can either set the volume to an absolute value by passing a
+        number, or relative by passing in a string prefixed by + or -
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '{"volume": 10}'
+        "http://localhost:10010/players/bedroom/state"
+
+        curl -X PUT -H "Content-Type: application/json" -d '{"volume": "+5"}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+
+        * mute - can be either mute on or mute off
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json -d '{"mute": "mute on"}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * trackNo - used to skip to a specific track
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json -d '{"trackNo": 5}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * elapsedTime - used to skip to a time in the current track
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json -d '{"elapsedTime": 5}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * playbackState - used to set playback state - can be either play, pause
+        or toggle
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json -d '{"playbackState":
+        "play"}' "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * repeat - used to set repeat mode - can be either all, one or none
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"playMode":
+        {"repeat": "none"}}' "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * shuffle - used to set shuffle mode - can be either shuffle on or
+        shuffle off
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"playMode":
+        {"shuffle": "shuffle on"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * crossfade - used to set crossfade mode - can be either crossfade on or
+        crossfade off
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"playMode":
+        {"crossfade": "crossfade on"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/favourite - used to play a sonos favourite. Returns a 404
+        error if favourite not found
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"favourite": "BBC Radio 1"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/playlist - used to play a sonos playlist. Returns a 404
+        error if playlist not found
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"playlist": "test playlist"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/clip - plays a clip and then resumes playback (apart from
+        when playing from spotify connect). The clip must be in the directory
+        static/clips/
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"clip":"http://192.168.1.17:10010/static/clips/sample_clip.mp3"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/text - says some text and then resumes playback (apart
+        from when playing from spotify connect)
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"text":"hello world"}}' "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/next - skips to the next track
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"skip":"next"}}' "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/previous - skips to the previous track
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"skip":"previous"}}' "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/linein - sets input to be linein of a specified player
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"lineinSource":"kitchen"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/artistTopTracks - plays the top tracks of the first
+        artist returned by a spotify search
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"artistTopTracks":"blink 182"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/artistRadio - plays the artist radio of the first artist
+        returned by a spotify search
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"artistRadio":"blink 182"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+
+        * currentTrack/song - plays the first song returned by a spotify search
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"song":"all the small things"}}'
+        "http://localhost:10010/players/bedroom/state"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/stateInput'
+      responses:
+        '201':
+          description: successful result
+          schema:
+            $ref: '#/definitions/state'
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: playerState
+  '/players/{playerName}/nowplaying':
+    parameters:
+      - name: playerName
+        in: path
+        description: The zone name
+        required: true
+        type: string
+    get:
+      operationId: getPlayerNowPlaying
+      summary: get player now playing
+      tags:
+        - Players
+      description: |-
+        This gets details of the currently playing track
+
+        Example call
+        ```
+        curl -X GET "http://localhost:10010/zones/bedroom/nowplaying"
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/nowPlayingResult'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    post:
+      operationId: setPlayerNowPlaying
+      summary: set player now playing
+      tags:
+        - Players
+      description: >-
+        This is used to set the currently playing track or radio.   
+
+        The input should be passed in the body of the request and be an item
+        returned from a search result
+
+
+        Example call
+
+        ```
+
+        curl -X POST -H "Content-Type: application/json"-d '{"title": "The
+        Animal In Me","artist": "The Animal In Me","album": "The Animal In
+        Me","imageUrl":
+        "https://i.scdn.co/image/37eff75cf19923b7dc796ba374515dbe45098c14","type":
+        "artist","uri":
+        "x-sonosapi-radio:spotify%3aartistRadio%3a6hyAYqBdxyramm4W9TB7R0?sid=9&flags=8300&sn=5","metadata":
+        "<DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\"
+        xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"\n         
+        xmlns:r=\"urn:schemas-rinconnetworks-com:metadata-1-0/\"
+        xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\">\n          <item
+        id=\"000c206cspotify%3aartistRadio%3a6hyAYqBdxyramm4W9TB7R0\"
+        parentID=\"00052064spotify%3aartist%3athe animal in me\"
+        restricted=\"true\"><dc:title>The Animal In Me
+        radio</dc:title><upnp:class>object.item.audioItem.audioBroadcast.#artistRadio</upnp:class>\n         
+        <desc id=\"cdudn\"
+        nameSpace=\"urn:schemas-rinconnetworks-com:metadata-1-0/\">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>"}'
+        "http://localhost:10010/zones/bedroom/nowplaying"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              uri:
+                type: string
+              metadata:
+                type: string
+      responses:
+        '201':
+          description: successful result
+          schema:
+            $ref: '#/definitions/nowPlayingResult'
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: playerNowPlaying
+  '/players/{playerName}/queue':
+    parameters:
+      - name: playerName
+        in: path
+        description: The zone name
+        required: true
+        type: string
+    get:
+      operationId: getPlayerQueue
+      summary: get player queue
+      tags:
+        - Players
+      description: |-
+        This gets the details of the current queue
+
+        Example call
+        ```
+        curl -X GET "http://localhost:10010/zones/bedroom/queue?detailed=true"
+        ```
+      parameters:
+        - name: detailed
+          in: query
+          description: >-
+            Flag to indicate if detailed information should be returned. Default
+            is false
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: successful result
+          schema:
+            type: array
+            description: successful result
+            items:
+              type: object
+              properties:
+                uri:
+                  type: string
+                albumArtURI:
+                  type: string
+                title:
+                  type: string
+                artist:
+                  type: string
+                album:
+                  type: string
+          examples:
+            application/json:
+              - uri: >-
+                  x-sonos-spotify:spotify%3atrack%3a0AvV49z4EPz5ocYN7eKGAK?sid=9&flags=8224&sn=3
+                albumArtURI: >-
+                  /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a0AvV49z4EPz5ocYN7eKGAK%3fsid%3d9%26flags%3d8224%26sn%3d3
+                title: No Diggity
+                artist: Blackstreet
+                album: Another Level
+              - uri: >-
+                  x-sonos-spotify:spotify%3atrack%3a5OQGeJ1ceykovrykZsGhqL?sid=9&flags=8224&sn=3
+                albumArtURI: >-
+                  /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a5OQGeJ1ceykovrykZsGhqL%3fsid%3d9%26flags%3d8224%26sn%3d3
+                title: Breathless
+                artist: The Corrs
+                album: In Blue
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    patch:
+      operationId: addToPlayerQueue
+      summary: add to player queue
+      tags:
+        - Players
+      description: >-
+        This is used to add an individual item to the current queue.  
+
+        The input should be passed in the body of the request and be an item
+        returned from a search result
+
+
+        Example call
+
+        ```
+
+        curl -X PATCH -H "Content-Type: application/json" -d '{"uri":
+        "x-sonos-spotify:spotify%3atrack%3a1D3ODoXHBLpdxolZRHWV1j?sid=9&flags=8224&sn=5","metadata":
+        "<DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\"
+        xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"
+        xmlns:r=\"urn:schemas-rinconnetworks-com:metadata-1-0/\"
+        xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\"><item
+        id=\"00032020spotify%3atrack%3a1D3ODoXHBLpdxolZRHWV1j\"
+        parentID=\"00020000track:1D3ODoXHBLpdxolZRHWV1j\"
+        restricted=\"true\"><dc:title></dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class><desc
+        id=\"cdudn\"
+        nameSpace=\"urn:schemas-rinconnetworks-com:metadata-1-0/\">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>"}'
+        "http://localhost:10010/zones/bedroom/queue"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/queueRequest'
+      responses:
+        '200':
+          description: successful result
+          schema:
+            type: object
+            description: successful result
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    delete:
+      operationId: clearPlayerQueue
+      summary: clear player queue
+      tags:
+        - Players
+      description: >-
+        This is used to clear the current queue
+
+
+        Example call
+
+        ```
+
+        curl -X DELETE -H "Content-Type: application/json" -d ''
+        "http://localhost:10010/zones/bedroom/queue"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/ok'
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    post:
+      operationId: replacePlayerQueue
+      summary: replace playerqueue
+      tags:
+        - Players
+      description: >-
+        This replaces the current queue with specified tracks.  
+
+        The input should be passed in the body of the request and be an item
+        returned from a search result
+
+
+        Example call
+
+        ```
+
+        curl -X POST -H "Content-Type: application/json" -d '  {"uri":
+        "x-sonos-spotify:spotify%3atrack%3a1D3ODoXHBLpdxolZRHWV1j?sid=9&flags=8224&sn=5",
+        "metadata": "<DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\"
+        xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"
+        xmlns:r=\"urn:schemas-rinconnetworks-com:metadata-1-0/\"
+        xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\"><item
+        id=\"00032020spotify%3atrack%3a1D3ODoXHBLpdxolZRHWV1j\"
+        parentID=\"00020000track:1D3ODoXHBLpdxolZRHWV1j\"
+        restricted=\"true\"><dc:title></dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class><desc
+        id=\"cdudn\"
+        nameSpace=\"urn:schemas-rinconnetworks-com:metadata-1-0/\">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>"}'
+        "http://localhost:10010/zones/bedroom/queue"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/queueRequest'
+      responses:
+        '201':
+          description: successful result
+          schema:
+            type: object
+            description: successful result
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: playerQueue
+  /zones:
+    get:
+      operationId: getZones
+      summary: get all zones
+      tags:
+        - Zones
+      description: |-
+        This gets information about all zones currently discovered
+
+        Example call
+        ```
+        curl -X GET 'http://localhost:10010/zones'
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/zonesResult'
+          examples:
+            application/json:
+              - uuid: RINCON_000E58C4373C01400
+                coordinator:
+                  uuid: RINCON_000E58C4373C01400
+                  state:
+                    currentTrack:
+                      artist: Virgin Radio UK
+                      title: >-
+                        You are listening to Edith Bowman at Breakfast on Virgin
+                        Radio UK
+                      albumArtUri: >-
+                        /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                      duration: 0
+                      uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                      type: radio
+                      stationName: Virgin Radio UK
+                      absoluteAlbumArtUri: >-
+                        http://192.168.1.21:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                    nextTrack:
+                      artist: ''
+                      title: ''
+                      album: ''
+                      albumArtUri: ''
+                      duration: 0
+                      uri: ''
+                    volume: 28
+                    mute: false
+                    trackNo: 1
+                    elapsedTime: 627
+                    elapsedTimeFormatted: '00:10:27'
+                    playbackState: PLAYING
+                    playMode:
+                      repeat: none
+                      shuffle: false
+                      crossfade: false
+                  roomName: Bedroom
+                  coordinator: RINCON_000E58C4373C01400
+                  groupState:
+                    volume: 28
+                    mute: false
+                members:
+                  - uuid: RINCON_000E58C4373C01400
+                    state:
+                      currentTrack:
+                        artist: Virgin Radio UK
+                        title: >-
+                          You are listening to Edith Bowman at Breakfast on
+                          Virgin Radio UK
+                        albumArtUri: >-
+                          /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                        duration: 0
+                        uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                        type: radio
+                        stationName: Virgin Radio UK
+                        absoluteAlbumArtUri: >-
+                          http://192.168.1.21:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                      nextTrack:
+                        artist: ''
+                        title: ''
+                        album: ''
+                        albumArtUri: ''
+                        duration: 0
+                        uri: ''
+                      volume: 28
+                      mute: false
+                      trackNo: 1
+                      elapsedTime: 627
+                      elapsedTimeFormatted: '00:10:27'
+                      playbackState: PLAYING
+                      playMode:
+                        repeat: none
+                        shuffle: false
+                        crossfade: false
+                    roomName: Bedroom
+                    coordinator: RINCON_000E58C4373C01400
+                    groupState:
+                      volume: 28
+                      mute: false
+              - uuid: RINCON_5CAAFD23191C01400
+                coordinator:
+                  uuid: RINCON_5CAAFD23191C01400
+                  state:
+                    currentTrack:
+                      artist: Panic! At The Disco
+                      title: Victorious
+                      album: Death Of A Bachelor
+                      albumArtUri: >-
+                        /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a6od5hFv9IT5JHc7NEF9HRv%3fsid%3d9%26flags%3d8224%26sn%3d9
+                      duration: 178
+                      uri: >-
+                        x-sonos-spotify:spotify%3atrack%3a6od5hFv9IT5JHc7NEF9HRv?sid=9&flags=8224&sn=9
+                      type: track
+                      stationName: ''
+                      absoluteAlbumArtUri: >-
+                        https://i.scdn.co/image/a1e4ed2942e4a9b4fce5d654cb28fc30ceb968ef
+                    nextTrack:
+                      artist: Panic! At The Disco
+                      title: Don't Threaten Me With A Good Time
+                      album: Death Of A Bachelor
+                      albumArtUri: >-
+                        /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a2fh3bZ8jZhMxOcfESE9nQY%3fsid%3d9%26flags%3d8224%26sn%3d9
+                      duration: 213
+                      uri: >-
+                        x-sonos-spotify:spotify%3atrack%3a2fh3bZ8jZhMxOcfESE9nQY?sid=9&flags=8224&sn=9
+                      absoluteAlbumArtUri: >-
+                        https://i.scdn.co/image/a1e4ed2942e4a9b4fce5d654cb28fc30ceb968ef
+                    volume: 17
+                    mute: false
+                    trackNo: 1
+                    elapsedTime: 0
+                    elapsedTimeFormatted: '00:00:00'
+                    playbackState: STOPPED
+                    playMode:
+                      repeat: none
+                      shuffle: false
+                      crossfade: false
+                  roomName: James bedroom
+                  coordinator: RINCON_5CAAFD23191C01400
+                  groupState:
+                    volume: 17
+                    mute: false
+                members:
+                  - uuid: RINCON_5CAAFD23191C01400
+                    state:
+                      currentTrack:
+                        artist: Panic! At The Disco
+                        title: Victorious
+                        album: Death Of A Bachelor
+                        albumArtUri: >-
+                          /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a6od5hFv9IT5JHc7NEF9HRv%3fsid%3d9%26flags%3d8224%26sn%3d9
+                        duration: 178
+                        uri: >-
+                          x-sonos-spotify:spotify%3atrack%3a6od5hFv9IT5JHc7NEF9HRv?sid=9&flags=8224&sn=9
+                        type: track
+                        stationName: ''
+                        absoluteAlbumArtUri: >-
+                          https://i.scdn.co/image/a1e4ed2942e4a9b4fce5d654cb28fc30ceb968ef
+                      nextTrack:
+                        artist: Panic! At The Disco
+                        title: Don't Threaten Me With A Good Time
+                        album: Death Of A Bachelor
+                        albumArtUri: >-
+                          /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a2fh3bZ8jZhMxOcfESE9nQY%3fsid%3d9%26flags%3d8224%26sn%3d9
+                        duration: 213
+                        uri: >-
+                          x-sonos-spotify:spotify%3atrack%3a2fh3bZ8jZhMxOcfESE9nQY?sid=9&flags=8224&sn=9
+                        absoluteAlbumArtUri: >-
+                          https://i.scdn.co/image/a1e4ed2942e4a9b4fce5d654cb28fc30ceb968ef
+                      volume: 17
+                      mute: false
+                      trackNo: 1
+                      elapsedTime: 0
+                      elapsedTimeFormatted: '00:00:00'
+                      playbackState: STOPPED
+                      playMode:
+                        repeat: none
+                        shuffle: false
+                        crossfade: false
+                    roomName: James bedroom
+                    coordinator: RINCON_5CAAFD23191C01400
+                    groupState:
+                      volume: 17
+                      mute: false
+              - uuid: RINCON_000E585394A801400
+                coordinator:
+                  uuid: RINCON_000E585394A801400
+                  state:
+                    currentTrack:
+                      artist: Virgin Radio UK
+                      title: >-
+                        You are listening to Edith Bowman at Breakfast on Virgin
+                        Radio UK
+                      albumArtUri: >-
+                        /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                      duration: 0
+                      uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                      type: radio
+                      stationName: Virgin Radio UK
+                      absoluteAlbumArtUri: >-
+                        http://192.168.1.19:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                    nextTrack:
+                      artist: ''
+                      title: ''
+                      album: ''
+                      albumArtUri: ''
+                      duration: 0
+                      uri: ''
+                    volume: 21
+                    mute: false
+                    trackNo: 1
+                    elapsedTime: 626
+                    elapsedTimeFormatted: '00:10:26'
+                    playbackState: PLAYING
+                    playMode:
+                      repeat: none
+                      shuffle: false
+                      crossfade: false
+                  roomName: Kitchen
+                  coordinator: RINCON_000E585394A801400
+                  groupState:
+                    volume: 21
+                    mute: false
+                members:
+                  - uuid: RINCON_000E585394A801400
+                    state:
+                      currentTrack:
+                        artist: Virgin Radio UK
+                        title: >-
+                          You are listening to Edith Bowman at Breakfast on
+                          Virgin Radio UK
+                        albumArtUri: >-
+                          /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                        duration: 0
+                        uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                        type: radio
+                        stationName: Virgin Radio UK
+                        absoluteAlbumArtUri: >-
+                          http://192.168.1.19:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                      nextTrack:
+                        artist: ''
+                        title: ''
+                        album: ''
+                        albumArtUri: ''
+                        duration: 0
+                        uri: ''
+                      volume: 21
+                      mute: false
+                      trackNo: 1
+                      elapsedTime: 626
+                      elapsedTimeFormatted: '00:10:26'
+                      playbackState: PLAYING
+                      playMode:
+                        repeat: none
+                        shuffle: false
+                        crossfade: false
+                    roomName: Kitchen
+                    coordinator: RINCON_000E585394A801400
+                    groupState:
+                      volume: 21
+                      mute: false
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: zones
+  '/zones/{zoneName}':
+    parameters:
+      - name: zoneName
+        in: path
+        description: The zone name
+        required: true
+        type: string
+    get:
+      operationId: getZone
+      summary: get individual zone
+      tags:
+        - Zones
+      description: |-
+        This gets the details of an individual zone
+
+        Example call
+        ```
+        curl -X GET 'http://localhost:10010/zones/bedroom'
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/zone'
+          examples:
+            application/json:
+              currentTrack:
+                artist: Virgin Radio UK
+                title: 'Now Playing: Talk Tonight - Oasis'
+                albumArtUri: >-
+                  /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                duration: 0
+                uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                type: radio
+                stationName: Virgin Radio UK
+                absoluteAlbumArtUri: >-
+                  http://192.168.1.21:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+              nextTrack:
+                artist: ''
+                title: ''
+                album: ''
+                albumArtUri: ''
+                duration: 0
+                uri: ''
+              volume: 28
+              mute: false
+              trackNo: 1
+              elapsedTime: 120
+              elapsedTimeFormatted: '00:02:00'
+              playbackState: PLAYING
+              playMode:
+                repeat: none
+                shuffle: false
+                crossfade: false
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: zones
+  '/zones/{zoneName}/state':
+    parameters:
+      - name: zoneName
+        in: path
+        description: The zone name
+        required: true
+        type: string
+    get:
+      operationId: getZoneState
+      summary: get zone state
+      tags:
+        - Zones
+      description: |-
+        This gets the status of an individual zone
+
+        Example call
+        ```
+        curl -X GET 'http://localhost:10010/zones/bedroom/state'
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/state'
+          examples:
+            application/json:
+              currentTrack:
+                artist: Virgin Radio UK
+                title: 'Now Playing: Talk Tonight - Oasis'
+                albumArtUri: >-
+                  /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                duration: 0
+                uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                type: radio
+                stationName: Virgin Radio UK
+                absoluteAlbumArtUri: >-
+                  http://192.168.1.21:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+              nextTrack:
+                artist: ''
+                title: ''
+                album: ''
+                albumArtUri: ''
+                duration: 0
+                uri: ''
+              volume: 28
+              mute: false
+              trackNo: 1
+              elapsedTime: 120
+              elapsedTimeFormatted: '00:02:00'
+              playbackState: PLAYING
+              playMode:
+                repeat: none
+                shuffle: false
+                crossfade: false
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    put:
+      operationId: setZoneState
+      summary: set zone state
+      tags:
+        - Zones
+      description: >-
+        This endpoint is used to to change the status of a zone. The available
+        states you can change are
+
+
+        * volume - can either set the volume to an absolute value by passing a
+        number, or relative by passing in a string prefixed by + or -
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '{"volume": 10}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        curl -X PUT -H "Content-Type: application/json" -d '{"volume": "+5"}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+
+        * mute - can be either mute on or mute off
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json -d '{"mute": "mute on"}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * trackNo - used to skip to a specific track
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json -d '{"trackNo": 5}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * elapsedTime - used to skip to a time in the current track
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json -d '{"elapsedTime": 5}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * playbackState - used to set playback state - can be either play, pause
+        or toggle
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json -d '{"playbackState":
+        "play"}' "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * repeat - used to set repeat mode - can be either all, one or none
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"playMode":
+        {"repeat": "none"}}' "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * shuffle - used to set shuffle mode - can be either shuffle on or
+        shuffle off
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"playMode":
+        {"shuffle": "shuffle on"}}' "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * crossfade - used to set crossfade mode - can be either crossfade on or
+        crossfade off
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"playMode":
+        {"crossfade": "crossfade on"}}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/favourite - used to play a sonos favourite. Returns a 404
+        error if favourite not found
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"favourite": "BBC Radio 1"}}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/playlist - used to play a sonos playlist. Returns a 404
+        error if playlist not found
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"playlist": "test playlist"}}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/clip - plays a clip and then resumes playback (apart from
+        when playing from spotify connect). The clip must exist in static/clips
+        directory
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"clip":"http://192.168.1.17:10010/static/clips/sample_clip.mp3"}}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/text - says some text and then resumes playback (apart
+        from when playing from spotify connect)
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"text":"hello world"}}' "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/next - skips to the next track
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"skip":"next"}}' "http://localhost:10010/players/zones/state"
+
+        ```
+
+        * currentTrack/previous - skips to the previous track
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"skip":"previous"}}' "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/linein - sets input to be linein of a specified player
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"lineinSource":"kitchen"}}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/artistTopTracks - plays the top tracks of the first
+        artist returned by a spotify search
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"artistTopTracks":"blink 182"}}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/artistRadio - plays the artist radio of the first artist
+        returned by a spotify search
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"artistRadio":"blink 182"}}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+
+        * currentTrack/song - plays the first song returned by a spotify search
+
+        ```
+
+        curl -X PUT -H "Content-Type: application/json" -d '  {"currentTrack":
+        {"song":"all the small things"}}'
+        "http://localhost:10010/zones/bedroom/state"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/stateInput'
+      responses:
+        '201':
+          description: successful result
+          schema:
+            $ref: '#/definitions/state'
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: zoneState
+  '/zones/{zoneName}/nowplaying':
+    parameters:
+      - name: zoneName
+        in: path
+        description: The zone name
+        required: true
+        type: string
+    get:
+      operationId: getZoneNowPlaying
+      summary: get zone now playing
+      tags:
+        - Zones
+      description: |-
+        This gets details of the currently playing track
+
+        Example call
+        ```
+        curl -X GET "http://localhost:10010/zones/bedroom/nowplaying"
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/nowPlayingResult'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    post:
+      operationId: setZoneNowPlaying
+      summary: set zone now playing
+      tags:
+        - Zones
+      description: >-
+        This is used to set the currently playing track or radio.   
+
+        The input should be passed in the body of the request and be an item
+        returned from a search result
+
+
+        Example call
+
+        ```
+
+        curl -X POST -H "Content-Type: application/json"-d '{"title": "The
+        Animal In Me","artist": "The Animal In Me","album": "The Animal In
+        Me","imageUrl":
+        "https://i.scdn.co/image/37eff75cf19923b7dc796ba374515dbe45098c14","type":
+        "artist","uri":
+        "x-sonosapi-radio:spotify%3aartistRadio%3a6hyAYqBdxyramm4W9TB7R0?sid=9&flags=8300&sn=5","metadata":
+        "<DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\"
+        xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"\n         
+        xmlns:r=\"urn:schemas-rinconnetworks-com:metadata-1-0/\"
+        xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\">\n          <item
+        id=\"000c206cspotify%3aartistRadio%3a6hyAYqBdxyramm4W9TB7R0\"
+        parentID=\"00052064spotify%3aartist%3athe animal in me\"
+        restricted=\"true\"><dc:title>The Animal In Me
+        radio</dc:title><upnp:class>object.item.audioItem.audioBroadcast.#artistRadio</upnp:class>\n         
+        <desc id=\"cdudn\"
+        nameSpace=\"urn:schemas-rinconnetworks-com:metadata-1-0/\">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>"}'
+        "http://localhost:10010/zones/bedroom/nowplaying"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              uri:
+                type: string
+              metadata:
+                type: string
+      responses:
+        '201':
+          description: successful result
+          schema:
+            type: object
+            description: successful result
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: zoneNowPlaying
+  '/zones/{zoneName}/queue':
+    parameters:
+      - name: zoneName
+        in: path
+        description: The zone name
+        required: true
+        type: string
+    get:
+      operationId: getZoneQueue
+      summary: get zone queue
+      tags:
+        - Zones
+      description: |-
+        This gets the details of the current queue
+
+        Example call
+        ```
+        curl -X GET "http://localhost:10010/zones/bedroom/queue?detailed=true"
+        ```
+      parameters:
+        - name: detailed
+          in: query
+          description: >-
+            Flag to indicate if detailed information should be returned. Default
+            is false
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: successful result
+          schema:
+            type: array
+            description: successful result
+            items:
+              type: object
+              properties:
+                uri:
+                  type: string
+                albumArtURI:
+                  type: string
+                title:
+                  type: string
+                artist:
+                  type: string
+                album:
+                  type: string
+          examples:
+            application/json:
+              - uri: >-
+                  x-sonos-spotify:spotify%3atrack%3a0AvV49z4EPz5ocYN7eKGAK?sid=9&flags=8224&sn=3
+                albumArtURI: >-
+                  /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a0AvV49z4EPz5ocYN7eKGAK%3fsid%3d9%26flags%3d8224%26sn%3d3
+                title: No Diggity
+                artist: Blackstreet
+                album: Another Level
+              - uri: >-
+                  x-sonos-spotify:spotify%3atrack%3a5OQGeJ1ceykovrykZsGhqL?sid=9&flags=8224&sn=3
+                albumArtURI: >-
+                  /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a5OQGeJ1ceykovrykZsGhqL%3fsid%3d9%26flags%3d8224%26sn%3d3
+                title: Breathless
+                artist: The Corrs
+                album: In Blue
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    patch:
+      operationId: addToZoneQueue
+      summary: add to zone queue
+      tags:
+        - Zones
+      description: >-
+        This is used to add an individual item to the current queue.  
+
+        The input should be passed in the body of the request and be an item
+        returned from a search result
+
+
+        Example call
+
+        ```
+
+        curl -X PATCH -H "Content-Type: application/json" -d '{"uri":
+        "x-sonos-spotify:spotify%3atrack%3a1D3ODoXHBLpdxolZRHWV1j?sid=9&flags=8224&sn=5","metadata":
+        "<DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\"
+        xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"
+        xmlns:r=\"urn:schemas-rinconnetworks-com:metadata-1-0/\"
+        xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\"><item
+        id=\"00032020spotify%3atrack%3a1D3ODoXHBLpdxolZRHWV1j\"
+        parentID=\"00020000track:1D3ODoXHBLpdxolZRHWV1j\"
+        restricted=\"true\"><dc:title></dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class><desc
+        id=\"cdudn\"
+        nameSpace=\"urn:schemas-rinconnetworks-com:metadata-1-0/\">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>"}'
+        "http://localhost:10010/zones/bedroom/queue"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/queueRequest'
+      responses:
+        '200':
+          description: successful result
+          schema:
+            type: object
+            description: successful result
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    delete:
+      operationId: clearZoneQueue
+      summary: clear zone queue
+      tags:
+        - Zones
+      description: >-
+        This is used to clear the current queue
+
+
+        Example call
+
+        ```
+
+        curl -X DELETE -H "Content-Type: application/json" -d ''
+        "http://localhost:10010/zones/bedroom/queue"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+      responses:
+        '200':
+          description: successful result
+          schema:
+            type: object
+            description: successful result
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    post:
+      operationId: replaceZoneQueue
+      summary: replace zone queue
+      tags:
+        - Zones
+      description: >-
+        This replaces the current queue with specified tracks.  
+
+        The input should be passed in the body of the request and be an item
+        returned from a search result
+
+
+        Example call
+
+        ```
+
+        curl -X POST -H "Content-Type: application/json" -d '  {"uri":
+        "x-sonos-spotify:spotify%3atrack%3a1D3ODoXHBLpdxolZRHWV1j?sid=9&flags=8224&sn=5",
+        "metadata": "<DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\"
+        xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\"
+        xmlns:r=\"urn:schemas-rinconnetworks-com:metadata-1-0/\"
+        xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\"><item
+        id=\"00032020spotify%3atrack%3a1D3ODoXHBLpdxolZRHWV1j\"
+        parentID=\"00020000track:1D3ODoXHBLpdxolZRHWV1j\"
+        restricted=\"true\"><dc:title></dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class><desc
+        id=\"cdudn\"
+        nameSpace=\"urn:schemas-rinconnetworks-com:metadata-1-0/\">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>"}'
+        "http://localhost:10010/zones/bedroom/queue"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/queueRequest'
+      responses:
+        '201':
+          description: successful result
+          schema:
+            type: object
+            description: successful result
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: zoneQueue
+  '/zones/{zoneName}/members':
+    parameters:
+      - name: zoneName
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: getZoneMembers
+      summary: get zone members
+      tags:
+        - Zones
+      description: |-
+        This gets all members of the zone   
+        Example call
+         ```
+         curl -X GET -H "Content-Type: application/json"  "http://localhost:10010/zones/bedroom/members"
+         ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/membersResult'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    post:
+      operationId: addZoneMember
+      summary: add zone member
+      tags:
+        - Zones
+      description: |-
+        This adds a player to a zone   
+        Example call
+        ```
+        curl -X POST -H "Content-Type: application/json" -d '{
+          "player": "kitchen"
+        }' "http://localhost:10010/zones/bedroom/members"
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              player:
+                type: string
+            required:
+              - player
+            example:
+              player: james bedroom
+      responses:
+        '201':
+          description: successful result
+          schema:
+            $ref: '#/definitions/membersResult'
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: zoneMembers
+  '/zones/{zoneName}/members/{roomName}':
+    parameters:
+      - name: zoneName
+        in: path
+        required: true
+        type: string
+      - name: roomName
+        in: path
+        required: true
+        type: string
+    delete:
+      operationId: removeZoneMember
+      summary: remove zone member
+      tags:
+        - Zones
+      description: >-
+        This removes a member from a zone   
+
+        Example call
+
+        ```
+
+        curl -X DELETE -d ''
+        "http://localhost:10010/zones/bedroom/members/kitchen"
+
+        ```
+      parameters:
+        - name: async
+          in: query
+          type: boolean
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/membersResult'
+        '202':
+          description: default asynchronous result
+          schema:
+            $ref: '#/definitions/ok'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: zoneMembers
+  /search:
+    get:
+      operationId: search
+      summary: get search results from a music service
+      tags:
+        - Search
+      description: >-
+        This is used to search different music services.  
+
+
+        The service paramater controls which service to search. Currently
+        implemented services are  
+
+        * library
+
+        * spotify
+
+        * iplayer
+
+
+        The type paramater controls what type to search for. This may vary
+        accross services, but currently implemented for library and spotify
+        services are
+
+        * song
+
+        * album
+
+        * artist
+
+
+        For spotify, the type can also be specifed as artisttoptracks and it
+        returns results which play the top tracks by the artist.
+
+
+        For iplayer, this returns on demand programmes and the search types
+        implemented are
+
+        * title
+
+        * synopsis
+
+
+        For iplayer, the available list of programmes is refreshed every 24
+        hours, so the first time it is called, or if the data has not been
+        refreshed for more than 24 hours, it may take a long time to run. You
+        can force a refresh by calling 
+
+
+        The limit paramater allows you to limit the number of results returned.
+        This defaults to 20 if not specified.
+
+
+        The offset paramater allows you to page through results. This defaults
+        to 0 if not specified.
+         
+        The returned results include an array of items. Each item in the array
+        can be used as input to add to queue or set now playing endpoints. If
+        the results returned are a radio stream then it can only be added to now
+        playing.   
+
+        Note - spotify retruns a radio stream for artist so can only be added to
+        now playing
+
+
+        Also included are links to next and previous results when more than the
+        limit are returned to allow easy paging through the results, and details
+        of the number of results returned and available.
+
+
+        Example call
+
+        ```
+
+        curl -X GET
+        'http://localhost:10010/search?service=spotify&type=song&q=blue'
+
+        ```
+      parameters:
+        - name: service
+          in: query
+          description: The service to search
+          required: true
+          type: string
+        - name: type
+          in: query
+          description: 'The type of search to perform - can be song, album, artist'
+          required: true
+          type: string
+        - name: q
+          in: query
+          description: The term to search for
+          required: true
+          type: string
+        - name: offset
+          in: query
+          description: >-
+            Used when multiple pages of results are returned to show results
+            starting at offset
+          required: false
+          type: integer
+        - name: limit
+          in: query
+          description: How many search items to return
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/searchResult'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: search
+  /favourites:
+    get:
+      operationId: getFavourites
+      summary: get favourites from sonos
+      tags:
+        - Favourites
+      description: |-
+        This returns a list of favourites from sonos
+
+        Example call
+        ```
+        curl -X GET 'http://localhost:10010/favourites'
+        ```
+      parameters:
+        - name: detailed
+          in: query
+          description: >-
+            Used to specify if return just the names of the favourites or full
+            details. Defaults to false
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/favouritesResult'
+        default:
+          description: error result
+          schema:
+            $ref: '#/definitions/errorResponse'
+    x-swagger-router-controller: favourites
+  '/favourites/{favourite}':
+    parameters:
+      - name: favourite
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: getFavourite
+      summary: get individual favourite
+      tags:
+        - Favourites
+      description: |-
+        This gets details of an individual favourite.  
+        Example call
+        ```
+        curl -X GET "http://localhost:10010/favourites/6%20Music/"
+        ```
+      responses:
+        '200':
+          description: successful result
+          schema:
+            $ref: '#/definitions/favourite'
+        default:
+          description: error result
+    x-swagger-router-controller: favourites
+  /swagger:
+    get:
+      operationId: GET_swagger
+      tags:
+        - Swagger
+      description: Gets the swagger definiton
+      responses:
+        default:
+          description: ''
+    x-swagger-pipe: swagger_raw
+definitions:
+  player:
+    title: player
+    type: object
+    properties:
+      coordinator:
+        type: object
+        properties:
+          uuid:
+            type: string
+          zoneName:
+            type: string
+      groupState:
+        type: object
+        properties:
+          volume:
+            type: integer
+          mute:
+            type: string
+          '':
+            type: string
+      playerName:
+        type: string
+      state:
+        $ref: '#/definitions/state'
+      uuid:
+        type: string
+    example:
+      coordinator:
+        uuid: RINCON_000E58C4373C01400
+        zoneName: Bedroom
+      groupState:
+        volume: 0
+        mute: mute on
+      playerName: James bedroom
+      state:
+        currentTrack:
+          artist: The Rolling Stones
+          title: Get Off My Cloud
+          album: 'Forty Licks [Disc 1]'
+          duration: 176
+          uri: >-
+            x-file-cifs://ripley/music/V/Various%20Artists/stomp/14%20Get%20Off%20My%20Cloud.mp3
+          type: track
+          stationName: ''
+        nextTrack:
+          artist: Butthole Surfers
+          title: Sweat Loaf
+          album: Locust Abortion Technician
+          duration: 358
+          uri: >-
+            x-file-cifs://ripley/music/V/Various%20Artists/stomp/01%20-%20Sweat%20Loaf.mp3
+        volume: 17
+        mute: mute off
+        trackNo: 1
+        elapsedTime: 0
+        elapsedTimeFormatted: '00:00:00'
+        playbackState: pause
+        playMode:
+          repeat: none
+          shuffle: shuffle on
+          crossfade: crossfade on
+      uuid: RINCON_5CAAFD23191C01400
+  state:
+    title: state
+    type: object
+    properties:
+      currentTrack:
+        type: object
+        properties:
+          artist:
+            type: string
+          title:
+            type: string
+          album:
+            type: string
+          duration:
+            type: integer
+          uri:
+            type: string
+          type:
+            type: string
+          stationName:
+            type: string
+      nextTrack:
+        type: object
+        properties:
+          artist:
+            type: string
+          title:
+            type: string
+          album:
+            type: string
+          duration:
+            type: integer
+          uri:
+            type: string
+      volume:
+        type: integer
+      mute:
+        type: string
+      trackNo:
+        type: integer
+      elapsedTime:
+        type: integer
+      elapsedTimeFormatted:
+        type: string
+      playbackState:
+        type: string
+      playMode:
+        type: object
+        properties:
+          repeat:
+            type: string
+          shuffle:
+            type: string
+          crossfade:
+            type: string
+    example:
+      currentTrack:
+        artist: The Rolling Stones
+        title: Get Off My Cloud
+        album: 'Forty Licks [Disc 1]'
+        duration: 176
+        uri: >-
+          x-file-cifs://ripley/music/V/Various%20Artists/stomp/14%20Get%20Off%20My%20Cloud.mp3
+        type: track
+        stationName: ''
+      nextTrack:
+        artist: Butthole Surfers
+        title: Sweat Loaf
+        album: Locust Abortion Technician
+        duration: 358
+        uri: >-
+          x-file-cifs://ripley/music/V/Various%20Artists/stomp/01%20-%20Sweat%20Loaf.mp3
+      volume: 9
+      mute: mute off
+      trackNo: 1
+      elapsedTime: 0
+      elapsedTimeFormatted: '00:00:00'
+      playbackState: pause
+      playMode:
+        repeat: none
+        shuffle: shuffle on
+        crossfade: crossfade on
+  searchResult:
+    title: searchResult
+    type: object
+    description: successful result
+    properties:
+      returned:
+        type: integer
+      start:
+        type: integer
+      total:
+        type: integer
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            uri:
+              type: string
+            title:
+              type: string
+            artist:
+              type: string
+            album:
+              type: string
+            albumTrackNumber:
+              type:
+                - integer
+                - 'null'
+            imageUrl:
+              type: string
+            type:
+              type: string
+            metadata:
+              type: string
+            synopsis:
+              type: string
+            station:
+              type: string
+            broadcast:
+              type: string
+            duration:
+              type: integer
+          required:
+            - uri
+            - title
+            - type
+            - metadata
+      previous:
+        type: string
+      next:
+        type: string
+    required:
+      - returned
+      - start
+      - total
+    example:
+      items:
+        - title: Mr. Blue Sky
+          artist: Electric Light Orchestra
+          album: Out of the Blue
+          imageUrl: 'https://i.scdn.co/image/6e4bfaca5c09f0f480a51ac3b851e411b7338eb2'
+          albumTrackNumber: 13
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a2RlgNHKcydI9sayD2Df2xp?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a2RlgNHKcydI9sayD2Df2xp" parentID="00020000track:mr. blue sky" restricted="true"><dc:title>Mr. Blue Sky radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: 'Blue [Da Ba Dee]'
+          artist: Eiffel 65
+          album: 'Blue [da ba dee] [2009 Remixes]'
+          imageUrl: 'https://i.scdn.co/image/8c074f2a8eebc27bc034c07ddd563053b918d843'
+          albumTrackNumber: 7
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a3UCDrOA37BBdcExyIpN3Xj?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a3UCDrOA37BBdcExyIpN3Xj" parentID="00020000track:blue [da ba dee]" restricted="true"><dc:title>Blue [Da Ba Dee] radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Still Falling For You - Jonas Blue Remix
+          artist: Ellie Goulding
+          album: Still Falling For You (Jonas Blue Remix)
+          imageUrl: 'https://i.scdn.co/image/fa66f40185626231236c0f8beea576f21ae9e866'
+          albumTrackNumber: 1
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a0SwjtkL3kzjZeJo9YrWUAH?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a0SwjtkL3kzjZeJo9YrWUAH" parentID="00020000track:still falling for you - jonas blue remix" restricted="true"><dc:title>Still Falling For You - Jonas Blue Remix radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Christmas
+          artist: Michael Bublé
+          album: Christmas (Deluxe Special Edition)
+          imageUrl: 'https://i.scdn.co/image/91c2445c170390988d8010c45abb5c9d4c2db174'
+          albumTrackNumber: 11
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a0QUxMKYur7kAtauLnmyBCc?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a0QUxMKYur7kAtauLnmyBCc" parentID="00020000track:blue christmas" restricted="true"><dc:title>Blue Christmas radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Orchid
+          artist: The White Stripes
+          album: Get Behind Me Satan
+          imageUrl: 'https://i.scdn.co/image/ac718619172b6b864a19a909f05b9c4f94c455d6'
+          albumTrackNumber: 1
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a1PCA097woCMSDvZPUVeRI7?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a1PCA097woCMSDvZPUVeRI7" parentID="00020000track:blue orchid" restricted="true"><dc:title>Blue Orchid radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Monday - 2011 Total Version
+          artist: New Order
+          album: TOTAL
+          imageUrl: 'https://i.scdn.co/image/66592439e1b15a0ad718aaf99be7c539f66af1c1'
+          albumTrackNumber: 8
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a5rvY5aFTSvQAo2VNUR1Fxy?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a5rvY5aFTSvQAo2VNUR1Fxy" parentID="00020000track:blue monday - 2011 total version" restricted="true"><dc:title>Blue Monday - 2011 Total Version radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Jeans
+          artist: Lana Del Rey
+          album: Born To Die - The Paradise Edition
+          imageUrl: 'https://i.scdn.co/image/d0b1088e6172acbe186bd7cdb47b099d252261ff'
+          albumTrackNumber: 3
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a4RyK6N4IQ85xxLgguQAFH5?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a4RyK6N4IQ85xxLgguQAFH5" parentID="00020000track:blue jeans" restricted="true"><dc:title>Blue Jeans radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Christmas
+          artist: Elvis Presley
+          album: Christmas Hits
+          imageUrl: 'https://i.scdn.co/image/2cffda0efefb495da2db0d7043166621526ffd35'
+          albumTrackNumber: 15
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a2trWYvBwj0DV2JF3e2Y0d1?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a2trWYvBwj0DV2JF3e2Y0d1" parentID="00020000track:blue christmas" restricted="true"><dc:title>Blue Christmas radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: BLUE
+          artist: Troye Sivan
+          album: Blue Neighbourhood (Deluxe)
+          imageUrl: 'https://i.scdn.co/image/398e274e8b7cf908636f14af46e224e696196f9d'
+          albumTrackNumber: 15
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a0W2YQYzdW7EDKt17DfR8TV?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a0W2YQYzdW7EDKt17DfR8TV" parentID="00020000track:blue" restricted="true"><dc:title>BLUE radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Notes
+          artist: Meek Mill
+          album: DC4
+          imageUrl: 'https://i.scdn.co/image/04d983667863b05517687f2bf0e4d3004dd7266c'
+          albumTrackNumber: 8
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a7Gs3otHnZDq514kFHf0nx7?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a7Gs3otHnZDq514kFHf0nx7" parentID="00020000track:blue notes" restricted="true"><dc:title>Blue Notes radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue (Da Ba Dee)
+          artist: Eiffel 65
+          album: Europop
+          imageUrl: 'https://i.scdn.co/image/53a1ca4270ed9df62ea3fc0924caa49772409e6d'
+          albumTrackNumber: 4
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a5FgtdSf7I5lClThz2ptWvl?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a5FgtdSf7I5lClThz2ptWvl" parentID="00020000track:blue (da ba dee)" restricted="true"><dc:title>Blue (Da Ba Dee) radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Lights
+          artist: Jorja Smith
+          album: Blue Lights
+          imageUrl: 'https://i.scdn.co/image/61f085ef5bd1c8d00bf47c252ddbfd9f4b14b1ce'
+          albumTrackNumber: 1
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a2h1htUS8h2oYq63385ZApR?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a2h1htUS8h2oYq63385ZApR" parentID="00020000track:blue lights" restricted="true"><dc:title>Blue Lights radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue
+          artist: Beyoncé
+          album: 'BEYONCÉ [Platinum Edition]'
+          imageUrl: 'https://i.scdn.co/image/98be8968e1c29e6ef80831c5867733d2e687b508'
+          albumTrackNumber: 14
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a2LjkT4gu5wO4JdeEYl0fMY?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a2LjkT4gu5wO4JdeEYl0fMY" parentID="00020000track:blue" restricted="true"><dc:title>Blue radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Behind Blue Eyes
+          artist: Limp Bizkit
+          album: Greatest Hitz (UK/Japan Version)
+          imageUrl: 'https://i.scdn.co/image/95e07602fe458bb439b5a3f9ee78f6a245ce7712'
+          albumTrackNumber: 13
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a54rZnh93otfFvkG37BkY39?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a54rZnh93otfFvkG37BkY39" parentID="00020000track:behind blue eyes" restricted="true"><dc:title>Behind Blue Eyes radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Black and Blue
+          artist: Rory Butler
+          album: Black and Blue
+          imageUrl: 'https://i.scdn.co/image/0d62cdbde82532f40bbfa1221b7c3bb5d6446129'
+          albumTrackNumber: 1
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a02FOUinYxp3SWmFApdYGTu?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a02FOUinYxp3SWmFApdYGTu" parentID="00020000track:black and blue" restricted="true"><dc:title>Black and Blue radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue in Green
+          artist: Miles Davis
+          album: Kind Of Blue (Legacy Edition)
+          imageUrl: 'https://i.scdn.co/image/dd695d8a18d33640f2abca4588ef36a8ac1811a6'
+          albumTrackNumber: 3
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a0aWMVrwxPNYkKmFthzmpRi?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a0aWMVrwxPNYkKmFthzmpRi" parentID="00020000track:blue in green" restricted="true"><dc:title>Blue in Green radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Forever In Blue Jeans
+          artist: Neil Diamond
+          album: You Don't Bring Me Flowers
+          imageUrl: 'https://i.scdn.co/image/2243a147c2bd56362d245d026ef146d3aaf34beb'
+          albumTrackNumber: 2
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a1HNVGw472sKr3TeiECwmIH?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a1HNVGw472sKr3TeiECwmIH" parentID="00020000track:forever in blue jeans" restricted="true"><dc:title>Forever In Blue Jeans radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Pale Blue Eyes
+          artist: The Velvet Underground
+          album: The Velvet Underground
+          imageUrl: 'https://i.scdn.co/image/cc224b49c62de883afd35d12f73701b4589bcbbf'
+          albumTrackNumber: 4
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a1cG560wZP0s6fs1nsEVtQw?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a1cG560wZP0s6fs1nsEVtQw" parentID="00020000track:pale blue eyes" restricted="true"><dc:title>Pale Blue Eyes radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Sky
+          artist: CAZZETTE
+          album: Blue Sky (ft. Laleh)
+          imageUrl: 'https://i.scdn.co/image/200042113b6dafcc45bb030529d70ffd2c8e714d'
+          albumTrackNumber: 1
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a6v9sCNj1KY3wblGJAohxX2?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a6v9sCNj1KY3wblGJAohxX2" parentID="00020000track:blue sky" restricted="true"><dc:title>Blue Sky radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+        - title: Blue Christmas
+          artist: Elvis Presley
+          album: Elvis' Christmas Album
+          imageUrl: 'https://i.scdn.co/image/d8ec333974abb5987719025a55a7395a22becb79'
+          albumTrackNumber: 5
+          type: song
+          uri: >-
+            x-sonos-spotify:spotify%3atrack%3a3QiAAp20rPC3dcAtKtMaqQ?sid=9&flags=8224&sn=5
+          metadata: >-
+            <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+                      xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/" xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/">
+                      <item id="00032020spotify%3atrack%3a3QiAAp20rPC3dcAtKtMaqQ" parentID="00020000track:blue christmas" restricted="true"><dc:title>Blue Christmas radio</dc:title><upnp:class>object.item.audioItem.musicTrack</upnp:class>
+                      <desc id="cdudn" nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON2311_X_#Svc2311-0-Token</desc></item></DIDL-Lite>
+      returned: 20
+      total: 169596
+      start: 0
+      next: >-
+        http://192.168.1.17:10010/search?service=spotify&type=song&q=blue&limit=20&offset=20
+  queueRequest:
+    title: queueRequest
+    type: object
+    description: successful result
+    properties:
+      uri:
+        type: string
+      metadata:
+        type: string
+      enqueAsNext:
+        type: boolean
+      desiredFirstTrackNumberEnqueued:
+        type: integer
+  errorResponse:
+    title: errorResponse
+    type: object
+    description: error result
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      description:
+        type: string
+      errors:
+        type: array
+        items:
+          type: object
+          properties:
+            error:
+              type: string
+            message:
+              type: string
+            '':
+              type: string
+    example:
+      code: not.implemnted.yet
+      message: not implemented yet
+      description: not implemented yet
+      errors:
+        - error: not implemnted yet
+          message: not implemented yet
+  playersResult:
+    title: playersResult
+    type: array
+    items:
+      $ref: '#/definitions/player'
+    example:
+      - coordinator: RINCON_000E58C4373C01400
+        groupState:
+          volume: 0
+          mute: false
+        roomName: Bedroom
+        state:
+          currentTrack:
+            artist: ''
+            title: ''
+            album: ''
+            albumArtUri: ''
+            duration: 0
+            uri: ''
+            type: track
+            stationName: ''
+          nextTrack:
+            artist: ''
+            title: ''
+            album: ''
+            albumArtUri: ''
+            duration: 0
+            uri: ''
+          volume: 0
+          mute: mute off
+          trackNo: 0
+          elapsedTime: 0
+          elapsedTimeFormatted: '00:00:00'
+          playbackState: pause
+          playMode:
+            repeat: none
+            shuffle: shuffle off
+            crossfade: crossfade off
+        uuid: RINCON_000E58C4373C01400
+      - coordinator: RINCON_000E585394A801400
+        groupState:
+          volume: 0
+          mute: false
+        roomName: Kitchen
+        state:
+          currentTrack:
+            artist: ''
+            title: ''
+            album: ''
+            albumArtUri: ''
+            duration: 0
+            uri: ''
+            type: track
+            stationName: ''
+          nextTrack:
+            artist: ''
+            title: ''
+            album: ''
+            albumArtUri: ''
+            duration: 0
+            uri: ''
+          volume: 0
+          mute: mute off
+          trackNo: 0
+          elapsedTime: 0
+          elapsedTimeFormatted: '00:00:00'
+          playbackState: pause
+          playMode:
+            repeat: none
+            shuffle: shuffle off
+            crossfade: crossfade off
+        uuid: RINCON_000E585394A801400
+      - coordinator: RINCON_5CAAFD23191C01400
+        groupState:
+          volume: 0
+          mute: false
+        roomName: James bedroom
+        state:
+          currentTrack:
+            artist: ''
+            title: ''
+            album: ''
+            albumArtUri: ''
+            duration: 0
+            uri: ''
+            type: track
+            stationName: ''
+          nextTrack:
+            artist: ''
+            title: ''
+            album: ''
+            albumArtUri: ''
+            duration: 0
+            uri: ''
+          volume: 0
+          mute: mute off
+          trackNo: 0
+          elapsedTime: 0
+          elapsedTimeFormatted: '00:00:00'
+          playbackState: pause
+          playMode:
+            repeat: none
+            shuffle: shuffle off
+            crossfade: crossfade off
+        uuid: RINCON_5CAAFD23191C01400
+  membersResult:
+    title: membersResult
+    type: array
+    items:
+      $ref: '#/definitions/member'
+  stateInput:
+    title: stateInput
+    type: object
+    properties:
+      currentTrack:
+        type: object
+        properties:
+          favourite:
+            type: string
+          playlist:
+            type: string
+          clip:
+            type: string
+          text:
+            type: string
+          skip:
+            type: string
+          source:
+            type: string
+          lineinSource:
+            type: string
+          artistTopTracks:
+            type: string
+          artistRadio:
+            type: string
+          song:
+            type: string
+          '':
+            type: string
+      volume:
+        type:
+          - integer
+          - string
+      mute:
+        type: string
+        enum:
+          - mute on
+          - mute off
+      trackNo:
+        type: integer
+      elapsedTime:
+        type: integer
+      playbackState:
+        type: string
+        enum:
+          - play
+          - pause
+          - toggle
+      playMode:
+        type: object
+        properties:
+          repeat:
+            type: string
+            enum:
+              - all
+              - one
+              - none
+          shuffle:
+            type: string
+            enum:
+              - shuffle on
+              - shuffle off
+          crossfade:
+            type: string
+            enum:
+              - crossfade on
+              - crossfade off
+          '':
+            type: string
+    example:
+      currentTrack:
+        favourite: ''
+        playlist: ''
+        clip: ''
+        text: ''
+        skip: previous
+      volume: 22
+      mute: mute off
+      trackNo: 0
+      elapsedTime: 0
+      playbackState: pause
+      playMode:
+        repeat: none
+        shuffle: shuffle off
+        crossfade: crossfade off
+  zone:
+    title: zone
+    type: object
+    properties:
+      zoneName:
+        type: string
+      state:
+        $ref: '#/definitions/state'
+      members:
+        type: array
+        items:
+          $ref: '#/definitions/member'
+      uuid:
+        type: string
+    example:
+      zoneName: Bedroom
+      state:
+        currentTrack:
+          artist: The Rolling Stones
+          title: Get Off My Cloud
+          album: 'Forty Licks [Disc 1]'
+          duration: 176
+          uri: >-
+            x-file-cifs://ripley/music/V/Various%20Artists/stomp/14%20Get%20Off%20My%20Cloud.mp3
+          type: track
+          stationName: ''
+        nextTrack:
+          artist: Butthole Surfers
+          title: Sweat Loaf
+          album: Locust Abortion Technician
+          duration: 358
+          uri: >-
+            x-file-cifs://ripley/music/V/Various%20Artists/stomp/01%20-%20Sweat%20Loaf.mp3
+        volume: 9
+        mute: mute off
+        trackNo: 1
+        elapsedTime: 0
+        elapsedTimeFormatted: '00:00:00'
+        playbackState: pause
+        playMode:
+          repeat: none
+          shuffle: shuffle on
+          crossfade: crossfade on
+      members:
+        - playerName: James bedroom
+          state:
+            currentTrack:
+              artist: The Rolling Stones
+              title: Get Off My Cloud
+              album: 'Forty Licks [Disc 1]'
+              duration: 176
+              uri: >-
+                x-file-cifs://ripley/music/V/Various%20Artists/stomp/14%20Get%20Off%20My%20Cloud.mp3
+              type: track
+              stationName: ''
+            nextTrack:
+              artist: Butthole Surfers
+              title: Sweat Loaf
+              album: Locust Abortion Technician
+              duration: 358
+              uri: >-
+                x-file-cifs://ripley/music/V/Various%20Artists/stomp/01%20-%20Sweat%20Loaf.mp3
+            volume: 17
+            mute: mute off
+            trackNo: 1
+            elapsedTime: 0
+            elapsedTimeFormatted: '00:00:00'
+            playbackState: pause
+            playMode:
+              repeat: none
+              shuffle: shuffle on
+              crossfade: crossfade on
+          uuid: RINCON_5CAAFD23191C01400
+        - playerName: Bedroom
+          state:
+            currentTrack:
+              artist: The Rolling Stones
+              title: Get Off My Cloud
+              album: 'Forty Licks [Disc 1]'
+              duration: 176
+              uri: >-
+                x-file-cifs://ripley/music/V/Various%20Artists/stomp/14%20Get%20Off%20My%20Cloud.mp3
+              type: track
+              stationName: ''
+            nextTrack:
+              artist: Butthole Surfers
+              title: Sweat Loaf
+              album: Locust Abortion Technician
+              duration: 358
+              uri: >-
+                x-file-cifs://ripley/music/V/Various%20Artists/stomp/01%20-%20Sweat%20Loaf.mp3
+            volume: 1
+            mute: mute off
+            trackNo: 1
+            elapsedTime: 0
+            elapsedTimeFormatted: '00:00:00'
+            playbackState: pause
+            playMode:
+              repeat: none
+              shuffle: shuffle on
+              crossfade: crossfade on
+          uuid: RINCON_000E58C4373C01400
+      uuid: RINCON_000E58C4373C01400
+  nowPlayingResult:
+    title: nowPlayingResult
+    type: object
+    description: successful result
+    properties:
+      artist:
+        type: string
+      title:
+        type: string
+      album:
+        type: string
+      albumArtUri:
+        type: string
+      duration:
+        type: integer
+      uri:
+        type: string
+      type:
+        type: string
+      stationName:
+        type: string
+      absoluteAlbumArtUri:
+        type: string
+      uriMetadata:
+        type: string
+      avTransportUri:
+        type: string
+    example:
+      artist: The Animal In Me
+      title: We Don't Talk Anymore
+      album: We Don't Talk Anymore
+      albumArtUri: >-
+        /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a2wTSNikJDa988ppmb1L1bH%3fsid%3d9%26flags%3d8224%26sn%3d7
+      duration: 220
+      uri: >-
+        x-sonos-spotify:spotify%3atrack%3a2wTSNikJDa988ppmb1L1bH?sid=9&flags=8224&sn=7
+      type: track
+      stationName: ''
+      absoluteAlbumArtUri: 'https://i.scdn.co/image/e4ccfd7ed272b9e668f84fc01c2fc3c621d3d370'
+      uriMetadata: ''
+      avTransportUri: 'x-rincon-queue:RINCON_000E585394A801400#0'
+  favouritesResult:
+    title: favouritesResult
+    type: array
+    description: successful result
+    items:
+      type: object
+      properties:
+        uri:
+          type: string
+        title:
+          type: string
+        metadata:
+          type: string
+        albumArtUri:
+          type: string
+    example:
+      - uri: 'x-sonosapi-stream:s24939?sid=254&flags=8224&sn=0'
+        title: BBC Radio 1
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/202" parentID="R:0/0/202" restricted="true"><dc:title>BBC
+          Radio
+          1</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s20277?sid=254&flags=8224&sn=0'
+        title: BBC Radio 1Xtra
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/203" parentID="R:0/0/203" restricted="true"><dc:title>BBC
+          Radio
+          1Xtra</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s24940?sid=254&flags=8224&sn=0'
+        title: BBC Radio 2
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/200" parentID="R:0/0/200" restricted="true"><dc:title>BBC
+          Radio
+          2</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s24941?sid=254&flags=8224&sn=0'
+        title: BBC Radio 3
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/201" parentID="R:0/0/201" restricted="true"><dc:title>BBC
+          Radio
+          3</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s25419?sid=254&flags=8224&sn=0'
+        title: BBC Radio 4
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/199" parentID="R:0/0/199" restricted="true"><dc:title>BBC
+          Radio
+          4</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s6839?sid=254&flags=8224&sn=0'
+        title: BBC Radio 4 Extra
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/196" parentID="R:0/0/196" restricted="true"><dc:title>BBC
+          Radio 4
+          Extra</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s24943?sid=254&flags=8224&sn=0'
+        title: BBC Radio 5 live
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/195" parentID="R:0/0/195" restricted="true"><dc:title>BBC
+          Radio 5
+          live</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s44491?sid=254&flags=8224&sn=0'
+        title: BBC Radio 6 Music
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/197" parentID="R:0/0/197" restricted="true"><dc:title>BBC
+          Radio 6
+          Music</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s45579?sid=254&flags=32&sn=0'
+        title: Kerrang! Radio
+        albumArtUri: 'http://d1i6vahw24eb07.cloudfront.net/s45579q.gif'
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="F00090020s45579" parentID="F000c0008s45579"
+          restricted="true"><dc:title>Kerrang!
+          Radio</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-rincon-mp3radio://192.168.1.2:9790/minimstreamer/*/R4'
+        title: proxy radio 4
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/219" parentID="R:0/0" restricted="true"><dc:title>proxy
+          radio
+          4</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-rincon-mp3radio://192.168.1.2:9790/minimstreamer/*/R6'
+        title: proxy radio 6
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="R:0/0/217" parentID="R:0/0" restricted="true"><dc:title>proxy
+          r6</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s190122?sid=254&flags=8224&sn=0'
+        title: 'SomaFM: Folk Forward'
+        albumArtUri: 'http://cdn-radiotime-logos.tunein.com/s190122q.png'
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="F00092020s190122" parentID="F00092020s190122"
+          restricted="true"><dc:title>SomaFM: Folk
+          Forward</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s200662?sid=254&flags=8224&sn=0'
+        title: TeamRock Radio
+        albumArtUri: 'http://cdn-radiotime-logos.tunein.com/s200662q.png'
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="F00092020s200662" parentID="F00092020s200662"
+          restricted="true"><dc:title>TeamRock
+          Radio</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+      - uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+        title: Virgin Radio UK
+        albumArtUri: 'http://cdn-radiotime-logos.tunein.com/s266113q.png'
+        metadata: >-
+          <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+          xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+          xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+          id="F00092020s266113" parentID="F000c0008s266113"
+          restricted="true"><dc:title>Virgin Radio
+          UK</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+          id="cdudn"
+          nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+  zonesResult:
+    title: zonesResult
+    type: array
+    description: successful result
+    items:
+      $ref: '#/definitions/zone'
+    example:
+      - uuid: RINCON_000E585394A801400
+        coordinator:
+          uuid: RINCON_000E585394A801400
+          state:
+            currentTrack:
+              artist: Virgin Radio UK
+              title: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+              albumArtUri: >-
+                /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+              duration: 0
+              uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+              type: radio
+              stationName: Virgin Radio UK
+              absoluteAlbumArtUri: >-
+                http://192.168.1.19:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+            nextTrack:
+              artist: ''
+              title: ''
+              album: ''
+              albumArtUri: ''
+              duration: 0
+              uri: ''
+            volume: 19
+            mute: false
+            trackNo: 1
+            elapsedTime: 0
+            elapsedTimeFormatted: '00:00:00'
+            playbackState: STOPPED
+            playMode:
+              repeat: none
+              shuffle: false
+              crossfade: false
+          roomName: Kitchen
+          coordinator: RINCON_000E585394A801400
+          groupState:
+            volume: 19
+            mute: false
+        members:
+          - uuid: RINCON_000E585394A801400
+            state:
+              currentTrack:
+                artist: Virgin Radio UK
+                title: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                albumArtUri: >-
+                  /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                duration: 0
+                uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                type: radio
+                stationName: Virgin Radio UK
+                absoluteAlbumArtUri: >-
+                  http://192.168.1.19:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+              nextTrack:
+                artist: ''
+                title: ''
+                album: ''
+                albumArtUri: ''
+                duration: 0
+                uri: ''
+              volume: 19
+              mute: false
+              trackNo: 1
+              elapsedTime: 0
+              elapsedTimeFormatted: '00:00:00'
+              playbackState: STOPPED
+              playMode:
+                repeat: none
+                shuffle: false
+                crossfade: false
+            roomName: Kitchen
+            coordinator: RINCON_000E585394A801400
+            groupState:
+              volume: 19
+              mute: false
+      - uuid: RINCON_5CAAFD23191C01400
+        coordinator:
+          uuid: RINCON_5CAAFD23191C01400
+          state:
+            currentTrack:
+              artist: Fall Out Boy
+              title: Thriller - Live From Hammersmith Palais
+              album: Infinity On High (Deluxe Edition)
+              albumArtUri: >-
+                /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a69H6lMNa5c10vN43tBDjt5%3fsid%3d9%26flags%3d8224%26sn%3d9
+              duration: 212
+              uri: >-
+                x-sonos-spotify:spotify%3atrack%3a69H6lMNa5c10vN43tBDjt5?sid=9&flags=8224&sn=9
+              type: track
+              stationName: ''
+              absoluteAlbumArtUri: 'https://i.scdn.co/image/182f82994a6b8e3f866649ded4dbecdb7f9f5d1d'
+            nextTrack:
+              artist: Fall Out Boy
+              title: 'This Ain''t A Scene, It''s An Arms Race'
+              album: Infinity On High (Deluxe Edition)
+              albumArtUri: >-
+                /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a2GD8Ia7rtJzfgTIy20TaRI%3fsid%3d9%26flags%3d8224%26sn%3d9
+              duration: 212
+              uri: >-
+                x-sonos-spotify:spotify%3atrack%3a2GD8Ia7rtJzfgTIy20TaRI?sid=9&flags=8224&sn=9
+              absoluteAlbumArtUri: 'https://i.scdn.co/image/182f82994a6b8e3f866649ded4dbecdb7f9f5d1d'
+            volume: 19
+            mute: false
+            trackNo: 3
+            elapsedTime: 65
+            elapsedTimeFormatted: '00:01:05'
+            playbackState: PAUSED_PLAYBACK
+            playMode:
+              repeat: none
+              shuffle: true
+              crossfade: false
+          roomName: James bedroom
+          coordinator: RINCON_5CAAFD23191C01400
+          groupState:
+            volume: 19
+            mute: false
+        members:
+          - uuid: RINCON_5CAAFD23191C01400
+            state:
+              currentTrack:
+                artist: Fall Out Boy
+                title: Thriller - Live From Hammersmith Palais
+                album: Infinity On High (Deluxe Edition)
+                albumArtUri: >-
+                  /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a69H6lMNa5c10vN43tBDjt5%3fsid%3d9%26flags%3d8224%26sn%3d9
+                duration: 212
+                uri: >-
+                  x-sonos-spotify:spotify%3atrack%3a69H6lMNa5c10vN43tBDjt5?sid=9&flags=8224&sn=9
+                type: track
+                stationName: ''
+                absoluteAlbumArtUri: >-
+                  https://i.scdn.co/image/182f82994a6b8e3f866649ded4dbecdb7f9f5d1d
+              nextTrack:
+                artist: Fall Out Boy
+                title: 'This Ain''t A Scene, It''s An Arms Race'
+                album: Infinity On High (Deluxe Edition)
+                albumArtUri: >-
+                  /getaa?s=1&u=x-sonos-spotify%3aspotify%253atrack%253a2GD8Ia7rtJzfgTIy20TaRI%3fsid%3d9%26flags%3d8224%26sn%3d9
+                duration: 212
+                uri: >-
+                  x-sonos-spotify:spotify%3atrack%3a2GD8Ia7rtJzfgTIy20TaRI?sid=9&flags=8224&sn=9
+                absoluteAlbumArtUri: >-
+                  https://i.scdn.co/image/182f82994a6b8e3f866649ded4dbecdb7f9f5d1d
+              volume: 19
+              mute: false
+              trackNo: 3
+              elapsedTime: 65
+              elapsedTimeFormatted: '00:01:05'
+              playbackState: PAUSED_PLAYBACK
+              playMode:
+                repeat: none
+                shuffle: true
+                crossfade: false
+            roomName: James bedroom
+            coordinator: RINCON_5CAAFD23191C01400
+            groupState:
+              volume: 19
+              mute: false
+      - uuid: RINCON_000E58C4373C01400
+        coordinator:
+          uuid: RINCON_000E58C4373C01400
+          state:
+            currentTrack:
+              artist: Virgin Radio UK
+              title: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+              albumArtUri: >-
+                /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+              duration: 0
+              uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+              type: radio
+              stationName: Virgin Radio UK
+              absoluteAlbumArtUri: >-
+                http://192.168.1.21:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+            nextTrack:
+              artist: ''
+              title: ''
+              album: ''
+              albumArtUri: ''
+              duration: 0
+              uri: ''
+            volume: 25
+            mute: false
+            trackNo: 1
+            elapsedTime: 0
+            elapsedTimeFormatted: '00:00:00'
+            playbackState: STOPPED
+            playMode:
+              repeat: none
+              shuffle: false
+              crossfade: false
+          roomName: Bedroom
+          coordinator: RINCON_000E58C4373C01400
+          groupState:
+            volume: 25
+            mute: false
+        members:
+          - uuid: RINCON_000E58C4373C01400
+            state:
+              currentTrack:
+                artist: Virgin Radio UK
+                title: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                albumArtUri: >-
+                  /getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+                duration: 0
+                uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+                type: radio
+                stationName: Virgin Radio UK
+                absoluteAlbumArtUri: >-
+                  http://192.168.1.21:1400/getaa?s=1&u=x-sonosapi-stream%3as266113%3fsid%3d254%26flags%3d8224%26sn%3d0
+              nextTrack:
+                artist: ''
+                title: ''
+                album: ''
+                albumArtUri: ''
+                duration: 0
+                uri: ''
+              volume: 25
+              mute: false
+              trackNo: 1
+              elapsedTime: 0
+              elapsedTimeFormatted: '00:00:00'
+              playbackState: STOPPED
+              playMode:
+                repeat: none
+                shuffle: false
+                crossfade: false
+            roomName: Bedroom
+            coordinator: RINCON_000E58C4373C01400
+            groupState:
+              volume: 25
+              mute: false
+  member:
+    title: member
+    type: object
+    properties:
+      playerName:
+        type: string
+      state:
+        type: object
+        properties:
+          currentTrack:
+            type: object
+            properties:
+              artist:
+                type: string
+              title:
+                type: string
+              album:
+                type: string
+              duration:
+                type: integer
+              uri:
+                type: string
+              type:
+                type: string
+              stationName:
+                type: string
+          nextTrack:
+            type: object
+            properties:
+              artist:
+                type: string
+              title:
+                type: string
+              album:
+                type: string
+              duration:
+                type: integer
+              uri:
+                type: string
+          volume:
+            type: integer
+          mute:
+            type: string
+          trackNo:
+            type: integer
+          elapsedTime:
+            type: integer
+          elapsedTimeFormatted:
+            type: string
+          playbackState:
+            type: string
+          playMode:
+            type: object
+            properties:
+              repeat:
+                type: string
+              shuffle:
+                type: string
+              crossfade:
+                type: string
+      uuid:
+        type: string
+    example:
+      playerName: Bedroom
+      state:
+        currentTrack:
+          artist: Senseless Things
+          title: Hold It Down
+          album: Empire Of The Senseless
+          duration: 263
+          uri: >-
+            x-file-cifs://ripley/music/V/Various%20Artists/stomp/04%20-%20Hold%20It%20Down.mp3
+          type: track
+          stationName: ''
+        nextTrack:
+          artist: The Rolling Stones
+          title: Get Off My Cloud
+          album: 'Forty Licks [Disc 1]'
+          duration: 176
+          uri: >-
+            x-file-cifs://ripley/music/V/Various%20Artists/stomp/14%20Get%20Off%20My%20Cloud.mp3
+        volume: 1
+        mute: mute off
+        trackNo: 1
+        elapsedTime: 0
+        elapsedTimeFormatted: '00:00:00'
+        playbackState: pause
+        playMode:
+          repeat: none
+          shuffle: shuffle on
+          crossfade: crossfade on
+      uuid: RINCON_000E58C4373C01400
+  favourite:
+    title: favourite
+    type: object
+    properties:
+      uri:
+        type: string
+      title:
+        type: string
+      albumArtUri:
+        type: string
+      metadata:
+        type: string
+    example:
+      uri: 'x-sonosapi-stream:s266113?sid=254&flags=8224&sn=0'
+      title: Virgin Radio UK
+      albumArtUri: 'http://cdn-radiotime-logos.tunein.com/s266113q.png'
+      metadata: >-
+        <DIDL-Lite xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"
+        xmlns:r="urn:schemas-rinconnetworks-com:metadata-1-0/"
+        xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/"><item
+        id="F00092020s266113" parentID="F000c0008s266113"
+        restricted="true"><dc:title>Virgin Radio
+        UK</dc:title><upnp:class>object.item.audioItem.audioBroadcast</upnp:class><desc
+        id="cdudn"
+        nameSpace="urn:schemas-rinconnetworks-com:metadata-1-0/">SA_RINCON65031_</desc></item></DIDL-Lite>
+  ok:
+    title: ok
+    type: object
+    example:
+      message: OK

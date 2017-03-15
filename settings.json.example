@@ -1,0 +1,7 @@
+{
+    "settings": {
+        "port": 10010,
+        "webRoot": "http://localhost:10010",
+        "announceVolume": 40
+    }
+}
