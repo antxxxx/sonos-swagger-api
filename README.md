@@ -1,4 +1,4 @@
-SWAGGER SONOS API
+SONOS SWAGGER API
 =================
 
 ** This project was inspired by [https://github.com/jishi/node-sonos-http-api](https://github.com/jishi/node-sonos-http-api). 
