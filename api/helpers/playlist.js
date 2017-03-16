@@ -21,7 +21,7 @@ function playPlaylist(player, playlistName, timeout) {
       .then(() => {
           debug('calling playPause.pause()');
 
-          return playPause.pause(player);
+          return playPause.pause(player, promiseTimeout);
       })
       .then(() => {
           debug('calling player.coordinator.replaceWithPlaylist()');
@@ -44,7 +44,7 @@ function playPlaylist(player, playlistName, timeout) {
       .then(() => {
           debug('calling playPause.play()');
 
-          return playPause.play(player);
+          return playPause.play(player, promiseTimeout);
       })
       .catch(Promise.TimeoutError, (error) => {
           throw new Error(`timeout waiting for state change : ${error}`);
