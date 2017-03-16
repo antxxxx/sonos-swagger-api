@@ -1,7 +1,7 @@
 'use strict';
 
 const commonFunctions = require('./commonFunctions');
-const debug = require('debug')('test:helpers:checkValidPlayer');
+const debug = require('debug')('helpers:favourite');
 const Promise = require('bluebird');
 const _ = require('lodash');
 
