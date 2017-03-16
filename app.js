@@ -4,11 +4,9 @@ const SwaggerExpress = require('swagger-express-mw');
 const express = require('express');
 const log4js = require('log4js');
 const logger = log4js.getLogger('app.js');
-const SonosDiscovery = require('sonos-discovery');
 const util = require('util');
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
-const discovery = new SonosDiscovery();
 const startupHelpers = require('./startupHelpers');
 
 
@@ -61,7 +59,7 @@ startupHelpers.createTtsDirectory(ttsDir)
 
             // Inject discovery and settings into request
             app.use((req, res, next) => {
-                req.discovery = discovery;
+                req.discovery = startupHelpers.discovery;
                 req.settings = settings;
                 next();
             });

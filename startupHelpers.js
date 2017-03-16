@@ -10,6 +10,8 @@ const yaml = require('js-yaml');
 const _ = require('lodash');
 const nconf = require('nconf');
 const Datastore = require('nedb');
+const SonosDiscovery = require('sonos-discovery');
+const discovery = new SonosDiscovery();
 
 function filePathExists(filePath) {
     return new Promise((resolve, reject) => {
@@ -158,10 +160,12 @@ function loadDatabases(settings) {
 
     return dbSettings;
 }
+
 module.exports = {
     createRunningSwaggerFile,
     createTtsDirectory,
     createDatabaseDirectory,
     loadConfig,
-    loadDatabases
+    loadDatabases,
+    discovery
 };
