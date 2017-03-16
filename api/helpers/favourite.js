@@ -56,16 +56,9 @@ function playFavourite(player, requestedFavourite, timeout) {
                 return commonFunctions.checkReturnStatus(changeStateResult);
             }
 
-            debug('currently playing');
-
-            return 'currently playing';
+            return true;
         })
-        .then((result) => {
-            if (result === 'currently playing') {
-                debug('favourite already playing so not doing anything');
-
-                return true;
-            }
+        .then(() => {
             debug('calling playPause.play()');
 
             return playPause.play(player);
