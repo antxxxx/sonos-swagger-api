@@ -30,6 +30,10 @@ function getFavourites(player, detailed) {
 }
 
 function getFavourite(player, favouriteToLookFor) {
+    if (!favouriteToLookFor) {
+        return false;
+    }
+
     return Promise.resolve()
     .then(() => {
         debug('calling player.system.getFavorites()');
