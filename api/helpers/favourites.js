@@ -31,7 +31,10 @@ function getFavourites(player, detailed) {
 
 function getFavourite(player, favouriteToLookFor) {
     if (!favouriteToLookFor) {
-        return false;
+        return Promise.resolve()
+        .then(() => {
+            return favouriteToLookFor;
+        });
     }
 
     return Promise.resolve()
