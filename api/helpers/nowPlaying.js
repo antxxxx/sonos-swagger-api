@@ -2,12 +2,13 @@
 const commonFunctions = require('./commonFunctions');
 const debug = require('debug')('helpers:nowPlaying');
 const Promise = require('bluebird');
+const _ = require('lodash');
 
 function getNowPlaying(player) {
     return Promise.resolve()
         .then(() => {
             debug('getting player.state.currentTrack');
-            const currentState = player.state.currentTrack;
+            const currentState = _.cloneDeep(player.state.currentTrack);
 
             currentState.uriMetadata = player.avTransportUriMetadata;
             currentState.avTransportUri = player.avTransportUri;
