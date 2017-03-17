@@ -10,6 +10,13 @@ function playPlaylist(player, playlistName, timeout) {
     let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
+    if (!playlistName) {
+        return Promise.resolve()
+        .then(() => {
+            throw new Error('Playlist not found');
+        });
+    }
+
     function onTransportStateChange(status) {
         debug(`status changed in onTransportStateChange ${commonFunctions.returnFullObject(status)}`);
         if (trackChanged instanceof Function) {
