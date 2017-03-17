@@ -9,6 +9,7 @@ const debug = require('debug')('helpers:favourite');
 function playFavourite(player, requestedFavourite, timeout) {
     let trackChanged;
     const promiseTimeout = timeout || 30000;
+    let sonosFavourite;
 
     function onTransportStateChange(status) {
         debug(`status changed in onTransportStateChange ${commonFunctions.returnFullObject(status)}`);
@@ -23,6 +24,7 @@ function playFavourite(player, requestedFavourite, timeout) {
         })
         .then((results) => {
             if (results) {
+                sonosFavourite = results;
                 debug('calling playPause.pause()');
 
                 return playPause.pause(player);
@@ -30,17 +32,26 @@ function playFavourite(player, requestedFavourite, timeout) {
             throw new Error('favourite not found');
         })
         .then(() => {
+            if (player.state.currentTrack.uri === sonosFavourite.uri) {
+                debug('same stream as currently playing');
+
+                return 'no stream change';
+            }
             debug('calling player.coordinator.replaceWithFavorite()');
             player.on('transport-state', onTransportStateChange);
 
             return player.coordinator.replaceWithFavorite(requestedFavourite);
         })
-        .then(() => {
-            debug('waiting for state change');
+        .then((result) => {
+            if (result !== 'no stream change') {
+                debug('waiting for state change');
 
-            return new Promise((resolve) => {
-                trackChanged = resolve;
-            });
+                return new Promise((resolve) => {
+                    trackChanged = resolve;
+                });
+            }
+
+            return true;
         })
         .timeout(promiseTimeout)
         .then(() => {
