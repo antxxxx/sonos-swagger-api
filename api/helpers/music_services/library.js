@@ -38,13 +38,13 @@ function search(player, type, query, offset, limit, settings) {
 
             switch (type) {
                 case 'song':
-                    sonosQuery = `A:TRACKS: ${query}`;
+                    sonosQuery = `A:TRACKS:${query}`;
                     break;
                 case 'artist':
-                    sonosQuery = `A:ARTIST: ${query}`;
+                    sonosQuery = `A:ARTIST:${query}`;
                     break;
                 case 'album':
-                    sonosQuery = `A:ALBUM: ${query}`;
+                    sonosQuery = `A:ALBUM:${query}`;
                     break;
                 default:
                     throw new Error('this search has not been implemented yet');
