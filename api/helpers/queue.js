@@ -71,17 +71,59 @@ function addMultipleItemsToQueue(player, items) {
         });
 }
 
-function clearQueue(player) {
+function clearQueue(player, timeout) {
+    let trackChanged;
+    let changeStateResult;
+    let initialState;
+    const promiseTimeout = timeout || 20000;
+
+    function onTransportStateChange(status) {
+        debug(`status changed in onTransportStateChange ${commonFunctions.returnFullObject(status)}`);
+        if (trackChanged instanceof Function) {
+            trackChanged();
+        }
+    }
+
     return Promise.resolve()
         .then(() => {
+            return state.getPlayerState(player);
+        })
+        .then((result) => {
+            initialState = result;
+
+            player.on('transport-state', onTransportStateChange);
+            debug('calling player.coordinator.clearQueue()');
+
             return player.coordinator.clearQueue();
         })
         .then((result) => {
-            return commonFunctions.checkReturnStatus(result);
+            changeStateResult = result;
+
+            if (initialState.currentTrack.type === 'track') {
+                debug('currently playing track so waiting for state change');
+
+                return new Promise((resolve) => {
+                    trackChanged = resolve;
+                });
+            }
+            debug('currently not playing track so not waiting for state change');
+
+            return true;
+        })
+        .timeout(promiseTimeout)
+        .then(() => {
+            return commonFunctions.checkReturnStatus(changeStateResult);
+        })
+        .catch(Promise.TimeoutError, (error) => {
+            debug(`got error ${commonFunctions.returnFullObject(error)}`);
+            throw new Error(`timeout waiting for state change : ${error}`);
         })
         .catch((err) => {
             debug(`Error in clearQueue() : ${commonFunctions.returnFullObject(err)}`);
             throw err;
+        })
+        .finally(() => {
+            player.removeListener('transport-state', onTransportStateChange);
         });
 }
 
@@ -136,29 +178,37 @@ function replaceQueueAndPlay(player, uri, metadata) {
             throw err;
         });
 }
+
 function addToQueueAndPlay(player, uri, metadata) {
     let returnData;
 
     return Promise.resolve()
         .then(() => {
+            debug('calling queue.addToQueue()');
+
             return addToQueue(player, uri, metadata, player.state.trackNo + 1, true);
         })
         .then((result) => {
             returnData = result;
+            debug('calling playPause.pause()');
 
             return playPause.pause(player);
         })
         .then(() => {
             const nowPlayinguri = 'x-rincon-queue:RINCON_000E58C4373C01400#0';
 
-            debug('calling setNowPlaying()');
+            debug('calling nowPlaying.setNowPlaying()');
 
             return nowPlaying.setNowPlaying(player, nowPlayinguri, '');
         })
         .then(() => {
+            debug('calling seek.trackSeek()');
+
             return seek.trackSeek(player, returnData.firsttracknumberenqueued);
         })
         .then(() => {
+            debug('calling playPause.play()');
+
             return playPause.play(player);
         })
         .then(() => {

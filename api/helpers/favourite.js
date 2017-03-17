@@ -8,7 +8,6 @@ const debug = require('debug')('helpers:favourite');
 
 function playFavourite(player, requestedFavourite, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 30000;
 
     function onTransportStateChange(status) {
@@ -36,28 +35,14 @@ function playFavourite(player, requestedFavourite, timeout) {
 
             return player.coordinator.replaceWithFavorite(requestedFavourite);
         })
-        .then((result) => {
-            changeStateResult = result;
-            if (result) {
-                debug('waiting for state change');
+        .then(() => {
+            debug('waiting for state change');
 
-                return new Promise((resolve) => {
-                    trackChanged = resolve;
-                });
-            }
-
-            return true;
+            return new Promise((resolve) => {
+                trackChanged = resolve;
+            });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            if (changeStateResult) {
-                debug('calling checkReturnStatus()');
-
-                return commonFunctions.checkReturnStatus(changeStateResult);
-            }
-
-            return true;
-        })
         .then(() => {
             debug('calling playPause.play()');
 

@@ -22,7 +22,6 @@ function getNowPlaying(player) {
 
 function setNowPlaying(player, uri, metadata, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -39,18 +38,14 @@ function setNowPlaying(player, uri, metadata, timeout) {
 
             return player.coordinator.setAVTransport(uri, metadata);
         })
-        .then((result) => {
+        .then(() => {
             debug('waiting for state change');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .then(() => {
             return getNowPlaying(player);
         })

@@ -7,7 +7,6 @@ const debug = require('debug')('helpers:playlist');
 
 function playPlaylist(player, playlistName, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     if (!playlistName) {
@@ -36,8 +35,7 @@ function playPlaylist(player, playlistName, timeout) {
 
           return player.coordinator.replaceWithPlaylist(playlistName);
       })
-      .then((result) => {
-          changeStateResult = result;
+      .then(() => {
           debug('waiting for state change');
 
           return new Promise((resolve) => {
@@ -45,9 +43,6 @@ function playPlaylist(player, playlistName, timeout) {
           });
       })
       .timeout(promiseTimeout)
-      .then(() => {
-          return commonFunctions.checkReturnStatus(changeStateResult);
-      })
       .then(() => {
           debug('calling playPause.play()');
 
