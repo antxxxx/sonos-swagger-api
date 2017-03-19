@@ -46,7 +46,6 @@ function isMemberOfZone(zone, player) {
 
 function addMemberToZone(discovery, zone, player, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 30000;
 
     function onTransportStateChange(newState) {
@@ -73,18 +72,14 @@ function addMemberToZone(discovery, zone, player, timeout) {
 
             return player.setAVTransport(rinconUri(zone));
         })
-        .then((result) => {
+        .then(() => {
             debug('waiting for state change');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);
@@ -101,7 +96,6 @@ function addMemberToZone(discovery, zone, player, timeout) {
 
 function removeMemberFromZone(discovery, zone, player, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(newState) {
@@ -127,18 +121,14 @@ function removeMemberFromZone(discovery, zone, player, timeout) {
 
             return player.becomeCoordinatorOfStandaloneGroup();
         })
-        .then((result) => {
+        .then(() => {
             debug('waiting for state change');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);

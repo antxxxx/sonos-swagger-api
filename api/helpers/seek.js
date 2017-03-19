@@ -6,7 +6,6 @@ const Promise = require('bluebird');
 
 function timeSeek(player, seconds, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -22,18 +21,14 @@ function timeSeek(player, seconds, timeout) {
 
             return player.coordinator.timeSeek(seconds);
         })
-        .then((result) => {
+        .then(() => {
             debug('waiting for state change');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);
@@ -49,7 +44,6 @@ function timeSeek(player, seconds, timeout) {
 
 function trackSeek(player, track, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -65,18 +59,14 @@ function trackSeek(player, track, timeout) {
 
             return player.coordinator.trackSeek(track);
         })
-        .tap((result) => {
+        .tap(() => {
             debug('waiting for state change');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);

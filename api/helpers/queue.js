@@ -63,7 +63,9 @@ function addMultipleItemsToQueue(player, items) {
             return remapedItems;
         })
         .then((remapedItems) => {
-            return player.coordinator.addMultipleURIsToQueue(remapedItems, '');
+            debug(remapedItems);
+
+            return player.coordinator.addMultipleURIsToQueue(remapedItems, items[0].uri);
         })
         .catch((err) => {
             debug(`Error in addMultipleItemsToQueue() : ${commonFunctions.returnFullObject(err)}`);
@@ -73,7 +75,6 @@ function addMultipleItemsToQueue(player, items) {
 
 function clearQueue(player, timeout) {
     let trackChanged;
-    let changeStateResult;
     let initialState;
     const promiseTimeout = timeout || 20000;
 
@@ -96,9 +97,7 @@ function clearQueue(player, timeout) {
 
             return player.coordinator.clearQueue();
         })
-        .then((result) => {
-            changeStateResult = result;
-
+        .then(() => {
             if (initialState.currentTrack.type === 'track') {
                 debug('currently playing track so waiting for state change');
 
@@ -111,9 +110,6 @@ function clearQueue(player, timeout) {
             return true;
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);

@@ -6,7 +6,6 @@ const debug = require('debug')('helpers:nextPrevious');
 
 function next(player, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -29,15 +28,10 @@ function next(player, timeout) {
 
             return player.coordinator.nextTrack();
         })
-        .then((result) => {
-            changeStateResult = result;
-
+        .then(() => {
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
-        })
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
         })
         .timeout(promiseTimeout)
         .catch(Promise.TimeoutError, (error) => {
@@ -55,7 +49,6 @@ function next(player, timeout) {
 
 function previous(player, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -78,17 +71,12 @@ function previous(player, timeout) {
 
             return player.coordinator.previousTrack();
         })
-        .then((result) => {
-            changeStateResult = result;
-
+        .then(() => {
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);

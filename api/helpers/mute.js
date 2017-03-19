@@ -8,7 +8,6 @@ const state = require('./state');
 
 function setMuteStatus(player, muteStatus, timeout) {
     let muteChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onMuteChange(status) {
@@ -41,20 +40,14 @@ function setMuteStatus(player, muteStatus, timeout) {
 
             throw new Error(`invalid mutestatus : ${muteStatus}`);
         })
-        .then((result) => {
+        .then(() => {
             debug('got return status - waiting for onMuteChange');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 muteChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            debug('checking return status');
-
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);
@@ -73,7 +66,6 @@ function setMuteStatus(player, muteStatus, timeout) {
 
 function setGroupMuteStatus(player, muteStatus, timeout) {
     let muteChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onMuteChange(status) {
@@ -106,20 +98,14 @@ function setGroupMuteStatus(player, muteStatus, timeout) {
 
             throw new Error(`invalid mutestatus : ${muteStatus}`);
         })
-        .then((result) => {
+        .then(() => {
             debug('got return status - waiting for onMuteChange');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 muteChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            debug('checking return status');
-
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);

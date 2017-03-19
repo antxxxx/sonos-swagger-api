@@ -7,7 +7,6 @@ const state = require('./state');
 
 function play(player, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -32,9 +31,7 @@ function play(player, timeout) {
 
             return player.coordinator.play();
         })
-        .then((result) => {
-            changeStateResult = result;
-
+        .then(() => {
             if (player.coordinator.state.playbackState !== 'PLAYING') {
                 debug('currently not playing so waiting for state change');
 
@@ -47,9 +44,6 @@ function play(player, timeout) {
             return true;
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);
@@ -73,9 +67,6 @@ function playAsync(player) {
 
             return player.coordinator.play();
         })
-        .then((changeStateResult) => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch((error) => {
             debug(`error in play() :  ${commonFunctions.returnFullObject(error)}`);
             throw error;
@@ -84,7 +75,6 @@ function playAsync(player) {
 
 function pause(player, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -108,9 +98,7 @@ function pause(player, timeout) {
 
             return player.coordinator.pause();
         })
-        .then((result) => {
-            changeStateResult = result;
-
+        .then(() => {
             if (player.coordinator.state.playbackState === 'PLAYING') {
                 debug('currently playing so waiting for state change');
 
@@ -123,9 +111,6 @@ function pause(player, timeout) {
             return true;
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);

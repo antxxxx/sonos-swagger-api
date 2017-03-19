@@ -23,16 +23,6 @@ function errorHandler(ctx, error, next, async) {
     sendResponse(ctx, 500, response, next, async);
 }
 
-function checkReturnStatus(status) {
-    return Promise.resolve()
-        .then(() => {
-            if (status.statusCode === 200 && status.statusMessage === 'OK') {
-                return;
-            }
-            throw new Error(`bad response : ${status.statusMessage}`);
-        });
-}
-
 function returnFullObject(object) {
     return util.inspect(object, false, null);
 }
@@ -60,7 +50,6 @@ const types = {
 };
 
 module.exports = {
-    checkReturnStatus,
     sendResponse,
     errorHandler,
     isRadioOrLineIn,

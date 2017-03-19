@@ -6,7 +6,6 @@ const state = require('./state');
 
 function setRepeatStatus(player, requestedState, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -36,18 +35,14 @@ function setRepeatStatus(player, requestedState, timeout) {
 
             return player.coordinator.repeat(requestedState);
         })
-        .then((result) => {
+        .then(() => {
             debug('waiting for state change');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);
@@ -66,7 +61,6 @@ function setRepeatStatus(player, requestedState, timeout) {
 
 function setShuffleStatus(player, requestedState, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -101,18 +95,14 @@ function setShuffleStatus(player, requestedState, timeout) {
 
             return player.coordinator.shuffle(0);
         })
-        .then((result) => {
+        .then(() => {
             debug('waiting for state change');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);
@@ -131,7 +121,6 @@ function setShuffleStatus(player, requestedState, timeout) {
 
 function setCrossfadeStatus(player, requestedState, timeout) {
     let trackChanged;
-    let changeStateResult;
     const promiseTimeout = timeout || 20000;
 
     function onTransportStateChange(status) {
@@ -165,18 +154,14 @@ function setCrossfadeStatus(player, requestedState, timeout) {
 
             return player.coordinator.crossfade(0);
         })
-        .then((result) => {
+        .then(() => {
             debug('waiting for state change');
-            changeStateResult = result;
 
             return new Promise((resolve) => {
                 trackChanged = resolve;
             });
         })
         .timeout(promiseTimeout)
-        .then(() => {
-            return commonFunctions.checkReturnStatus(changeStateResult);
-        })
         .catch(Promise.TimeoutError, (error) => {
             debug(`got error ${commonFunctions.returnFullObject(error)}`);
             throw new Error(`timeout waiting for state change : ${error}`);
