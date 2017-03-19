@@ -98,7 +98,7 @@ function clearQueue(player, timeout) {
             return player.coordinator.clearQueue();
         })
         .then(() => {
-            if (initialState.currentTrack.type === 'track') {
+            if (initialState.currentTrack.type === 'track' && initialState.playbackState === 'play') {
                 debug('currently playing track so waiting for state change');
 
                 return new Promise((resolve) => {
