@@ -164,6 +164,15 @@ function setPlayerState(ctx, next) {
                 return commonFunctions.sendResponse(ctx, 404, response, next, async);
             }
 
+            if (error.message === 'nothing to play') {
+                const response = {
+                    code: 'nothing.to.play',
+                    message: `cant play on player ${playerName}`
+                };
+
+                return commonFunctions.sendResponse(ctx, 500, response, next, async);
+            }
+
             return commonFunctions.errorHandler(ctx, error, next);
         });
 }

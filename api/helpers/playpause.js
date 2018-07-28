@@ -26,6 +26,10 @@ function play(player, timeout) {
                 debug('already playing so not doing anything');
                 throw new Error('already playing');
             }
+            if (typeof currentState.uri === 'undefined') {
+                debug('nothing to play so not doing anything');
+                throw new Error('nothing to play');
+            }
             player.on('transport-state', onTransportStateChange);
             debug('calling player.coordinator.play()');
 
